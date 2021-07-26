@@ -1,0 +1,84 @@
+<nz-breadcrumb class = "breadcrumbSpace">
+    <nz-breadcrumb-item>
+      <a>
+        <i nz-icon nzType="home"></i>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/inicio/bodegas/consultar">
+        <i nz-icon nzType="shop" nzTheme="outline"></i>
+        <span>Bodegas</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a>
+        <i nz-icon nzType="read" nzTheme="outline"></i>
+        <span>Editar Bodega</span> 
+      </a>
+      
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+
+<div nz-row nzJustify="start" class="nombreCategoria">
+    <h2 nz-typography nz-col nzSpan="24" id="titulo"> {{bodegaCiudad.nombre}}</h2>
+    <form nzSpan="24" nz-col nz-form [formGroup]="bodegaForm" (ngSubmit)="submitForm()">
+    <div nz-row >
+        <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="nombre">Nombre Bodega</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=nameBodegaErrorMsg>
+              <input nz-input placeholder="Bodega"  formControlName="nombre" id="nombre" />
+              <ng-template #nameBodegaErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un nombre!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El nombre es demasiado largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+    
+          <nz-form-item  nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="direccion">Dirección </nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=direccionBodegaErrorMsg>
+              <input nz-input placeholder="Dirección"  formControlName="direccion" id="direccion" />
+              <ng-template #direccionBodegaErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese una dirección!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡La dirección es demasiada larga!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start" >
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" [nzSm]="24" [nzXs]="24" id="titulo" nzFor="ciudad" nzRequired>Ciudad</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" nzErrorTip="¡Elija una ciudad por favor!">
+              <nz-select
+                id="ciudad"
+                formControlName="ciudad"    
+                nzPlaceHolder="Elija una ciudad por favor"
+                [ngModel]="'originalValue'" 
+              >
+                <nz-option *ngFor="let city of listOfCities" nzValue={{city.id}} nzLabel={{city.nombre}}></nz-option>
+                <nz-option nzHide nzValue=originalValue nzLabel={{bodegaCiudad.ciudad_name}}></nz-option>
+
+              </nz-select>
+            
+            </nz-form-control>
+          </nz-form-item>
+    </div>
+    
+    </form>
+
+  
+    <div nz-typography nz-col nzSpan="24"></div>
+
+</div>
+
+<div nz-row class="guardarButton">
+  <div nz-typography nz-col nzSpan="24"></div>
+
+  <button #Guardar (click)="actualizarBodega()" [disabled]="!bodegaForm.valid" nz-col nzSpan="2" nzOffset="22" nz-button nzType="primary"> Guardar </button>
+
+</div>
+
