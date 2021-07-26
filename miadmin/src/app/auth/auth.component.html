@@ -1,0 +1,32 @@
+<div nz-row>
+  <div class="login-card">
+    <nz-card class="card" nzTitle="Inicio de sesión">
+      <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm(loginForm.value)">
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="userErrorTpl">
+            <nz-input-group nzPrefixIcon="user">
+              <input autofocus type="email" nz-input formControlName="email" placeholder="Correo" />
+            </nz-input-group>
+            <ng-template #userErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">
+                Completar este campo
+              </ng-container>
+              <ng-container *ngIf="control.hasError('email')">
+                Ingrese un correo válido.
+              </ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="Completar este campo.">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="Contraseña" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button" [nzType]="'primary'">Iniciar
+          Sesión</button>
+      </form>
+    </nz-card>
+  </div>
+</div>

@@ -26,6 +26,12 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { BodegaComponent } from './bodega/bodega.component';
+import { AuthComponent } from './auth/auth.component';
+import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 registerLocaleData(es);
 
@@ -38,7 +44,8 @@ registerLocaleData(es);
     SidebarComponent,
     SubcategoriasComponent,
     BodegaComponent,
-    
+    AuthComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -55,7 +62,12 @@ registerLocaleData(es);
     NzDividerModule,
     ReactiveFormsModule,
     ScrollingModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    NzFormModule,
+    NzButtonModule,
+    NzInputModule,
+    NzCardModule,
+    NzGridModule
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent]
