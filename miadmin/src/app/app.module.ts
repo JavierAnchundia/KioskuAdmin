@@ -32,6 +32,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { ItemsComponent } from './items/items.component';
 
 registerLocaleData(es);
 
@@ -45,6 +46,7 @@ registerLocaleData(es);
     SubcategoriasComponent,
     BodegaComponent,
     AuthComponent,
+    ItemsComponent,
 
   ],
   imports: [

@@ -1,0 +1,73 @@
+.atributos
+{
+
+   font-weight: 700; 
+}
+
+.labelNombre{
+    font-weight: 700;
+  }
+  
+.nombreCategoria{
+    margin-bottom: 20px;
+}
+
+.breadcrumbSpace
+  {
+    margin-bottom: 25px;
+  }
+
+.container {
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
+    display: flex;
+  }
+  
+.container .btn-holder {
+    justify-content: flex-end;
+    display: flex;
+  }
+
+.guardarButton
+{
+  margin-top: 180px;
+
+}
+
+.info
+{
+    color:black;
+}
+
+[nz-carousel-content] {
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    background: #364d79;
+    color: #fff;
+    overflow: hidden;
+  }
+
+  h3 {
+    color: #fff;
+    margin-bottom: 0;
+    user-select: none;
+  }
+
+  .imagenesItem
+  {
+      margin-top: 30px;
+  }
+
+  .imagenPaquete {
+    width: 400px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 400px;
+  }
+
+.BodegaOptions
+{
+  position: absolute;
+}

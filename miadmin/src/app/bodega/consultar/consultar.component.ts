@@ -29,10 +29,8 @@ export class ConsultarComponent implements OnInit {
   visibleCiudad = false;
   multiplefilter = false;
 
-  categoriaForm:FormGroup;
   isModalCategoryVisible = false;
   isModalCategoryOkLoading = false;
-  listOfMenus = ["Menu1","Menu2","Menu3"];
   listOfColumns: ColumnItem[] = [
     {
       name: 'Bodega',
@@ -71,17 +69,11 @@ export class ConsultarComponent implements OnInit {
 
   constructor(
     private _bodega: BodegaService,
-    private _subcategoria: SubcategoriaService,
     private _formBuilder: FormBuilder,
-    private _categoria:CategoriaService,
 
   ) {
 
-    this.categoriaForm = this._formBuilder.group({
-      categoriaNombre: ["", [Validators.maxLength(25), Validators.required]],
-      remember: [true]
-
-    });
+   
 
    }
 
@@ -179,7 +171,9 @@ export class ConsultarComponent implements OnInit {
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar'
+      confirmButtonText: 'Eliminar',
+      cancelButtonText: 'Cancelar',
+
     }).then((result) => {
       if (result.isConfirmed) {
         this._bodega
@@ -197,7 +191,7 @@ export class ConsultarComponent implements OnInit {
          async (resp: any) => {
           Swal.close();
           
-          Swal.fire('Bodega eliminada exitosamente!');
+          Swal.fire('¡Bodega eliminada exitosamente!');
           
           this.cargarBodegas();
            return true;
@@ -214,109 +208,7 @@ export class ConsultarComponent implements OnInit {
    }
 
 
-   public verDetalle = async (key:number) => {
-      
-    this._subcategoria
-    .getSubcategorias(key)
-    .pipe(
-     catchError((err) => {
-       Swal.close();
-       Swal.fire(
-         "Ha ocurrido un error inesperado al abrir esta bodega"
-       );
-       return throwError(err);
-     })
-   )
-   .subscribe(
-     async (resp: any) => {
-      Swal.close();
-      
-      
-      
-      this.cargarBodegas();
-       return true;
-     },
-     (error:any) => {
-       console.error('Error:' + error);
-       return throwError(error);
-     },
-     () => console.log('HTTP request completed.')
-   );
-   }
-
-   submitCategoriaForm():void
-   {
-    for (const i in this.categoriaForm.controls) {
-      if (this.categoriaForm.controls.hasOwnProperty(i)) {
-        this.categoriaForm.controls[i].markAsDirty();
-        this.categoriaForm.controls[i].updateValueAndValidity();
-      }
-    }
-   }
-
-   //Metodo que permite mostrar el modal para poder crear una categoria
-   showModal(): void {
-    this.isModalCategoryVisible = true;
-
-  }
-
-  //Metodo que permite manejar cuando se da OK al boton del modal
-  handleOk(): void {
-    this.isModalCategoryOkLoading = true;
-    const formData = new FormData();
-    formData.append('nombre',this.categoriaForm.value.categoriaNombre);
-
-
-      this._categoria
-      .crearCategoria(formData)
-      .pipe(
-       catchError((err) => {
-         Swal.close();
-         Swal.fire(
-           "Ha ocurrido un error inesperado al crear esa Categoría"
-         );
-         return throwError(err);
-       })
-     )
-     .subscribe(
-       async (resp: any) => {
-        this.isModalCategoryVisible = false;
-        this.isModalCategoryOkLoading = false;
-
-        this.categoriaForm.patchValue({
-          categoriaNombre: "",
-        });
-        
-        this.categoriaForm.reset();
-        for (const key in this.categoriaForm.controls) {
-          if (this.categoriaForm.controls.hasOwnProperty(key)) {
-            this.categoriaForm.controls[key].markAsPristine();
-            this.categoriaForm.controls[key].updateValueAndValidity();
-          }
-        }
-        Swal.close();
-        
-        Swal.fire({
-          title:'¡Categoría creada exitosamente!'})
-          .then((result) => {
-          if (result.dismiss === Swal.DismissReason.backdrop) {
-            this.cargarBodegas();
-          }
-
-          if (result.isConfirmed) {
-            this.cargarBodegas();
-          }
-        });
-        
-        
-         return true;
-       },
-       (error:any) => {
-         console.error('Error:' + error);
-         return throwError(error);
-       },
-       () => console.log('HTTP request completed.')
-     );
+   
     
 
     
@@ -325,23 +217,8 @@ export class ConsultarComponent implements OnInit {
 
     
     
-  }
-
-  //Metodo que permite manejar cuando el modal de la subcategoria se cierra 
-  handleCancel(): void {
-    this.isModalCategoryVisible = false;
-    this.categoriaForm.patchValue({
-      categoriaNombre: "",
-    });
-
-    this.categoriaForm.reset();
-    for (const key in this.categoriaForm.controls) {
-      if (this.categoriaForm.controls.hasOwnProperty(key)) {
-        this.categoriaForm.controls[key].markAsPristine();
-        this.categoriaForm.controls[key].updateValueAndValidity();
-      }
-    }
   
-  }
+
+
 
 }

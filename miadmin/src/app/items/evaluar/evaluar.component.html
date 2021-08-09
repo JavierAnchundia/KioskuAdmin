@@ -1,0 +1,129 @@
+<nz-breadcrumb class = "breadcrumbSpace">
+    <nz-breadcrumb-item>
+      <a>
+        <i nz-icon nzType="home"></i>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/inicio/bodegas/consultar">
+        <i nz-icon nzType="audit" nzTheme="outline"></i>
+        <span>Evaluar Item</span>
+      </a>
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+
+<div nz-row nzJustify="start" class="nombreCategoria">
+
+    <!--<h4 class=' atributos' nz-typography nz-col nzSpan="24" id="titulo"> Nombre del Item</h4>
+    <h4 class=' ' nz-typography nz-col nzSpan="24" id="titulo"> Nintendo Switch Monster Hunter		 </h4>
+
+    <h4 class=' atributos' nz-typography nz-col nzSpan="24" id="titulo"> Descripción</h4>
+    <h4 class=' ' nz-typography nz-col nzSpan="24" id="titulo"> Este es el Nintendo Switch de la edicion limitada de Monster Hunter Risa	</h4>
+    -->
+    <form nzSpan="24" nz-col nz-form [formGroup]="bodegaForm" (ngSubmit)="submitForm()">
+    <div nz-row >
+
+        <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="nombreItem" [nzSm]="24" [nzXs]="24"  nzFor="nombreItem">Nombre del Item</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" >
+              <input class='info' nz-input  formControlName="nombreItem" id="nombreItem" [disabled]="true" />             
+            </nz-form-control>
+          </nz-form-item>
+
+          
+
+          <nz-form-item nz-col nzSpan="24" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24"  nzFor="descripcionItem">Descripción</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18">
+              <input nz-input class='info' formControlName="descripcionItem" id="descripcionItem" (disabled)="true" />
+             
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="2" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="cantidadItem" [nzSm]="24" [nzXs]="24"  nzFor="cantidadItem">Cantidad</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18">
+              <input nz-input class='info' formControlName="cantidadItem" id="cantidadItem" (disabled)="true" />
+             
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="10" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="modoEntrega" [nzSm]="24" [nzXs]="24"  nzFor="modoEntrega">Modo de Entrega</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18">
+              <input nz-input class='info' formControlName="modoEntrega" id="modoEntrega" (disabled)="true" />
+             
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24"  nzFor="propietarioItem">Propietario</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18">
+              <input nz-input class='info' formControlName="propietarioItem" id="propietarioItem" (disabled)="true" />
+             
+            </nz-form-control>
+          </nz-form-item>
+
+         
+
+        <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="nombre">Créditos</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=nameBodegaErrorMsg>
+              <input nz-input placeholder="Bodega"  formControlName="nombre" id="nombre" />
+              <ng-template #nameBodegaErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un nombre!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El nombre es demasiado largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+    
+
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start" >
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" [nzSm]="24" [nzXs]="24" id="titulo" nzFor="ciudad" nzRequired>Bodega</nz-form-label>
+            <nz-form-control  nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" nzErrorTip="¡Elija una ciudad por favor!">
+              <nz-select
+                class='BodegaOptions'
+                id="ciudad"
+                formControlName="ciudad"    
+                nzPlaceHolder="Elija una ciudad por favor"
+                [ngModel]="'originalValue'" 
+              >
+                <nz-option class='BodegaOptions' *ngFor="let city of listOfCities" nzValue={{city.id}} nzLabel={{city.nombre}}></nz-option>
+                <nz-option class='BodegaOptions' nzHide nzValue=originalValue nzLabel={{bodegaCiudad.ciudad_name}}></nz-option>
+
+              </nz-select>
+            
+            </nz-form-control>
+          </nz-form-item>
+    </div>
+    
+    </form>
+
+    <h4 class='labelNombre' nz-typography nz-col nzSpan="24" id="titulo"> Imagenes		 </h4>
+    <nz-carousel [nzEffect]="effect" class='imagenesItem'>
+        <img
+        
+        
+        class="imagenPaquete"
+        src="{{ url_backend }}{{ ruta }}"
+        alt="Sin imagen adjunta"
+        title=""
+        
+      />
+      </nz-carousel>
+  
+    <div nz-typography nz-col nzSpan="24"></div>
+
+</div>
+
+<div nz-row class="guardarButton">
+  <div nz-typography nz-col nzSpan="24"></div>
+
+  <button #Guardar (click)="actualizarBodega()" [disabled]="!bodegaForm.valid" nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
+  <button #Guardar (click)="actualizarBodega()" [disabled]="!bodegaForm.valid" nz-col nzSpan="2" nzOffset="1" nz-button nzType="primary"> Admitir </button>
+
+</div>
+

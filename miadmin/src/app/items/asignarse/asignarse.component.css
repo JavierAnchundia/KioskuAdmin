@@ -1,0 +1,53 @@
+.iconoActionEliminar{
+    margin-left: 50px;
+    padding-left: 35px;
+}
+
+.iconoActionEditar{
+    margin-left: 50px;
+    padding-left: 50px;
+}
+
+#titulo{
+    /*margin-bottom: 50px;*/
+}
+
+.header
+{
+    background-color:#d6e4ff;
+
+}
+
+.search-box {
+    padding: 8px;
+  }
+
+  .search-box input {
+    width: 188px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .search-box button {
+    width: 90px;
+  }
+
+  .search-button {
+    margin-right: 8px;
+  }
+
+  .breadcrumbSpace
+  {
+    margin-bottom: 25px;
+  }
+
+  .labelNombre{
+    font-weight: 700;
+  }
+
+  .imagenPaquete {
+    width: 140px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 80px;
+  }
