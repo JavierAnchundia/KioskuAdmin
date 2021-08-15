@@ -21,6 +21,10 @@ const URL_SERVICIOS = {
   itemassigned: URL_ROOT + '/itemassigned/',
 
   adminItem: URL_ROOT + '/adminItem/',
+  statistics: URL_ROOT + '/statistics/',
+  dailyOrders: URL_ROOT + '/dailyOrders/',
+  recentSubmissions: URL_ROOT + '/recentSubmissions/',
+  recentProducts: URL_ROOT + '/most-recent/'
 };
 
 export default URL_SERVICIOS;
