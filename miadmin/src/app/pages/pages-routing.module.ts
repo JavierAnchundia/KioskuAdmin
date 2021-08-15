@@ -5,6 +5,7 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {SubcategoriasComponent} from '../subcategorias/subcategorias.component';
 import {BodegaComponent} from '../bodega/bodega.component';
 import {ItemsComponent} from '../items/items.component';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -19,20 +20,24 @@ const routes: Routes = [
     loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
   },
 
-  { path: 'subcategorias', 
+  { path: 'subcategorias',
     component: SubcategoriasComponent,
     loadChildren: () => import('../subcategorias/subcategorias.module').then(m => m.SubcategoriasModule)
   },
 
-  { path: 'bodegas', 
+  { path: 'bodegas',
   component: BodegaComponent,
   loadChildren: () => import('../bodega/bodega.module').then(m => m.BodegaModule)
   },
 
-  { path: 'items', 
+  { path: 'items',
   component: ItemsComponent,
   loadChildren: () => import('../items/items.module').then(m => m.ItemsModule)
   },
+
+  { path: '',
+    component: DashboardComponent,
+  }
 
 ];
 

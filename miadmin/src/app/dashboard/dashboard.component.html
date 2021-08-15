@@ -1,0 +1,100 @@
+<div class="title">
+  <h2>Dashboard - {{ this.currentMonth | date: 'MMMM' | uppercase}}</h2>
+</div>
+<nz-spin *ngIf="!this.statsLoaded" nzTip="Cargando..."></nz-spin>
+
+<div class="statisticsSection" *ngIf="this.statsLoaded">
+  <nz-row [nzGutter]="{ xs: 8, sm: 16, md: 20, lg: 22 }">
+    <nz-col [nzSpan]="6">
+      <nz-card nzHoverable>
+        <nz-statistic [nzValue]="( this.generalStats[0]['totalUsers'] | number: '1.0-2')!" [nzTitle]="'USUARIOS'" [nzSuffix]="suffixUsers"
+          [nzValueStyle]="{ color: '#3F8600', float: 'right' }"></nz-statistic>
+        <ng-template #suffixUsers><i nz-icon nzType="user" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="6">
+      <nz-card nzHoverable>
+        <nz-statistic [nzValue]="(this.generalStats[1]['totalOrders'] | number: '1.0-2')!" [nzTitle]="'TOTAL COMPRAS'" [nzSuffix]="suffixOrders"
+          [nzValueStyle]="{ color: '#CF1322', float: 'right'}"></nz-statistic>
+        <ng-template #suffixOrders><i nz-icon nzType="shopping" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="6">
+      <nz-card nzHoverable>
+        <nz-statistic [nzValue]="( this.generalStats[2]['totalSubs'] | number: '1.0-2')!" [nzTitle]="'POSTULACIONES'" [nzSuffix]="suffixSubs"
+          [nzValueStyle]="{ color: '#F7DB7B', float: 'right'}"></nz-statistic>
+        <ng-template #suffixSubs><i nz-icon nzType="form" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </nz-col>
+    <nz-col [nzSpan]="6">
+      <nz-card nzHoverable>
+        <nz-statistic [nzValue]="(this.generalStats[3]['totalPending']| number: '1.0-2')!" [nzTitle]="'POR ENTREGAR'" [nzSuffix]="suffixPending"
+          [nzValueStyle]="{ color: '#6144ff', float: 'right' }"></nz-statistic>
+        <ng-template #suffixPending><i nz-icon nzType="clock-circle" nzTheme="outline"></i></ng-template>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</div>
+<nz-spin *ngIf="!this.chartLoaded" nzTip="Cargando..."></nz-spin>
+<section class="chartSection" *ngIf="this.chartLoaded">
+    <div class="chartjs-block" width="100%">
+      <h3>Resumen de ventas</h3>
+      <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+      </canvas>
+    </div>
+  </section>
+  <nz-spin *ngIf="!this.tableLoaded" nzTip="Cargando..."></nz-spin>
+
+<div class="tablesSection" *ngIf="tableLoaded">
+  <div nz-row [nzGutter]="{ xs: 8, sm: 10, md: 10, lg: 22 }">
+    <div nz-col nzSpan="12">
+      <nz-card nzTitle="Postulaciones recientes" [nzExtra]="extraTemplate">
+        <nz-table #basicTable [nzData]="itemsList">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Estado</th>
+              <th>Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of basicTable.data">
+              <td>{{ data?.titulo }}</td>
+              <td>{{ data?.estado.estado }}</td>
+              <td>{{ data?.cantidad }}</td>
+
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+      <ng-template #extraTemplate>
+        <a>Ver todo</a>
+      </ng-template>
+    </div>
+    <div nz-col nzSpan="12">
+      <nz-card nzTitle="Productos recientes" [nzExtra]="extraTemplate2">
+        <nz-table #smallTable [nzData]="productsList">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>Categoría</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of smallTable.data">
+              <td>{{ data?.titulo }}</td>
+              <td>{{ data?.precio }}</td>
+              <td>{{ data?.categoria.nombre }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+      <ng-template #extraTemplate2>
+        <a>Ver todo</a>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

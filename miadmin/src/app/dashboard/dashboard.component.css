@@ -1,0 +1,20 @@
+.statisticsSection
+{
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.chartSection{
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.tablesSection{
+  margin-top: 5px;
+  padding-top: 5px;
+}
+
+.ant-statistic-content
+{
+  text-align: right;
+}

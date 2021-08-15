@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,9 +32,13 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { ItemsComponent } from './items/items.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
-registerLocaleData(es);
+registerLocaleData(es, 'es');
 
 @NgModule({
   declarations: [
@@ -47,6 +51,7 @@ registerLocaleData(es);
     BodegaComponent,
     AuthComponent,
     ItemsComponent,
+    DashboardComponent,
 
   ],
   imports: [
@@ -69,9 +74,12 @@ registerLocaleData(es);
     NzButtonModule,
     NzInputModule,
     NzCardModule,
-    NzGridModule
+    NzGridModule,
+    NzStatisticModule,
+    ChartsModule,
+    NzSpinModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: es_ES }],
+  providers: [{ provide: NZ_I18N, useValue: es_ES }, { provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
