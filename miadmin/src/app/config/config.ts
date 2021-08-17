@@ -28,6 +28,10 @@ const URL_SERVICIOS = {
   estado: URL_ROOT + '/estado/',
   estado_id: URL_ROOT + '/estado-id/',
   bodega_item: URL_ROOT + '/bodega-item/',
+  statistics: URL_ROOT + '/statistics/',
+  dailyOrders: URL_ROOT + '/dailyOrders/',
+  recentSubmissions: URL_ROOT + '/recentSubmissions/',
+  recentProducts: URL_ROOT + '/most-recent/'
 };
 
 export default URL_SERVICIOS;
