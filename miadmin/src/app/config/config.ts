@@ -19,8 +19,15 @@ const URL_SERVICIOS = {
   ciudad:  URL_ROOT + '/ciudad/',
   itemunassigned: URL_ROOT + '/itemunassigned/',
   itemassigned: URL_ROOT + '/itemassigned/',
-
+  items_user_accepted: URL_ROOT + '/itemsuseraccepted/',
+  item: URL_ROOT + '/item/',
   adminItem: URL_ROOT + '/adminItem/',
+  producto: URL_ROOT + '/producto/',
+  item_imagen: URL_ROOT + '/img-item/',
+  imagen_producto: URL_ROOT + '/img-producto/',
+  estado: URL_ROOT + '/estado/',
+  estado_id: URL_ROOT + '/estado-id/',
+  bodega_item: URL_ROOT + '/bodega-item/',
 };
 
 export default URL_SERVICIOS;

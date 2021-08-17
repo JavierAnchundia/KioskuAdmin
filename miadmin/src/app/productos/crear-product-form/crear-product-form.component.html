@@ -1,0 +1,194 @@
+<nz-breadcrumb class = "breadcrumbSpace">
+    <nz-breadcrumb-item>
+      <a>
+        <i nz-icon nzType="home"></i>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <a routerLink="/inicio/productos/crear">
+          <i nz-icon nzType="qrcode" nzTheme="outline"></i>
+          <span>Crear Producto</span>
+        </a>
+    </nz-breadcrumb-item>
+
+    <nz-breadcrumb-item>
+      <a>
+        <i nz-icon nzType="read" nzTheme="outline"></i>
+        <span>Nuevo Producto</span> 
+      </a>
+      
+    </nz-breadcrumb-item>
+</nz-breadcrumb>
+
+
+<div nz-row nzJustify="start" class="nombreProducto">
+    <h2 nz-typography nz-col nzSpan="24" id="titulo"> Item base: {{itemInicial.titulo}}</h2>
+    <form nzSpan="24" nz-col nz-form [formGroup]="productoForm" (ngSubmit)="submitForm()">
+    <div nz-row >
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="nombre">Nombre Producto</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=nameProductoErrorMsg>
+              <input nz-input placeholder="Nombre Producto"  formControlName="nombre" id="nombre" />
+              <ng-template #nameProductoErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un nombre!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El nombre es demasiado largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="24" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="descripcion">Descripción</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=descripcionProductErrorMsg>
+              <input nz-input placeholder="Descripcióon"  formControlName="descripcion" id="descripcion" />
+              <ng-template #descripcionProductErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese una descripción!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡La descripción es demasiada largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+    
+          
+
+       
+
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start" >
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" [nzSm]="24" [nzXs]="24" id="titulo" nzFor="categoria" nzRequired>Categoría</nz-form-label>
+            <nz-form-control  nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" nzErrorTip="¡Elija una categoría por favor!">
+              <nz-select
+                (ngModelChange)="onChangeCategory($event)"
+                class='BodegaOptions'
+                id="categoria"
+                formControlName="categoria"    
+                nzPlaceHolder="Elija una categoría por favor"
+              >
+                <nz-option class='BodegaOptions' *ngFor="let category of listOfCategorias" nzValue={{category.id}} nzLabel={{category.nombre}}></nz-option>
+
+              </nz-select>
+            
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start" >
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" [nzSm]="24" [nzXs]="24" id="titulo" nzFor="subcategoria" [nzRequired]="conSubcategoria">Subcategoría</nz-form-label>
+            <nz-form-control  nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" nzErrorTip="¡Elija una sub-categoría por favor!">
+              <nz-select
+                class='BodegaOptions'
+                id="subcategoria"
+                formControlName="subcategoria"    
+                nzPlaceHolder="Elija una sub-categoría por favor"
+              >
+                <nz-option class='BodegaOptions' *ngFor="let subcategory of listOfSubCategorias" nzValue={{subcategory.id}} nzLabel={{subcategory.nombre}}></nz-option>                  
+                <nz-option [nzDisabled]="true" *ngIf="!categoriaElegida" nzLabel={{mensajeSubcategoria}}></nz-option>
+                <nz-option [nzDisabled]="true" *ngIf="!conSubcategoria" nzLabel={{mensajeSinSubcategoria}}></nz-option>
+
+
+              </nz-select>
+            
+            </nz-form-control>
+          </nz-form-item>
+
+          
+          <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="peso">Peso </nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=pesoProductoErrorMsg>
+              <input nz-input placeholder="Peso"  formControlName="peso" id="peso" />
+              <ng-template #pesoProductoErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un peso!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El peso es demasiado largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="dimensiones">Dimensiones </nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=dimensionProductoErrorMsg>
+              <input nz-input placeholder="Dimensiones"  formControlName="dimensiones" id="dimensiones" />
+              <ng-template #dimensionProductoErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese las dimensiones!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiado largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="material">Material </nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=materialProductoErrorMsg>
+              <input nz-input placeholder="Material"  formControlName="material" id="material" />
+              <ng-template #materialProductoErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese el material!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiado largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="precio">Precio </nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=precioProdutoErrorMsg>
+              <input nz-input placeholder="Precio"  formControlName="precio" id="precio" />
+              <ng-template #precioProdutoErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un precio!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiada largo!</ng-container>
+    
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start" >
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" [nzSm]="24" [nzXs]="24" id="titulo" nzFor="bodega" nzRequired>Bodega</nz-form-label>
+            <nz-form-control  nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" nzErrorTip="¡Elija una bodega por favor!">
+              <nz-select
+                class='BodegaOptions'
+                id="bodega"
+                formControlName="bodega"    
+                nzPlaceHolder="Elija una bodega por favor"
+              >
+                <nz-option class='BodegaOptions' *ngFor="let bodega of listOfBodegas" nzValue={{bodega.id}} nzLabel={{bodega.nombre}}></nz-option>
+
+              </nz-select>
+            
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="14" nz-row nzJustify="start" >
+            <div class="form-group">
+
+            <nz-upload nzListType="picture"
+            [nzMultiple]="true"  [(nzFileList)]="fileList">
+              <button class="btn-submit" type="button">
+                <i nz-icon nzType="upload"></i>
+                Subir imágenes
+              </button>
+            </nz-upload>
+             </div>
+         </nz-form-item>
+
+
+         
+    </div>
+    
+    </form>
+
+  
+    <div nz-typography nz-col nzSpan="24"></div>
+
+</div>
+
+<div nz-row class="guardarButton">
+  <div nz-typography nz-col nzSpan="24"></div>
+
+  <button #Guardar (click)="crearProducto()" [disabled]="!productoForm.valid" nz-col nzSpan="2" nzOffset="22" nz-button nzType="primary"> Guardar </button>
+
+</div>
+

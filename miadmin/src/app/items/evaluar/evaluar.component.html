@@ -4,11 +4,17 @@
         <i nz-icon nzType="home"></i>
       </a>
     </nz-breadcrumb-item>
+
     <nz-breadcrumb-item>
-      <a routerLink="/inicio/bodegas/consultar">
+      <a routerLink="/inicio/items/mis-items">
+        <i nz-icon nzType="qrcode" nzTheme="outline"></i>
+        <span>Mis Items</span>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+
         <i nz-icon nzType="audit" nzTheme="outline"></i>
         <span>Evaluar Item</span>
-      </a>
     </nz-breadcrumb-item>
 </nz-breadcrumb>
 
@@ -21,7 +27,7 @@
     <h4 class=' atributos' nz-typography nz-col nzSpan="24" id="titulo"> Descripción</h4>
     <h4 class=' ' nz-typography nz-col nzSpan="24" id="titulo"> Este es el Nintendo Switch de la edicion limitada de Monster Hunter Risa	</h4>
     -->
-    <form nzSpan="24" nz-col nz-form [formGroup]="bodegaForm" (ngSubmit)="submitForm()">
+    <form nzSpan="24" nz-col nz-form [formGroup]="itemForm" (ngSubmit)="submitForm()">
     <div nz-row >
 
         <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
@@ -65,15 +71,31 @@
             </nz-form-control>
           </nz-form-item>
 
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24"  nzFor="ciudadUsuario">Ciudad</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18">
+              <input nz-input class='info' formControlName="ciudadUsuario" id="ciudadUsuario" (disabled)="true" />
+             
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24"  nzFor="direccionUsuario">Dirección</nz-form-label>
+            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18">
+              <input nz-input class='info' formControlName="direccionUsuario" id="direccionUsuario" (disabled)="true" />
+             
+            </nz-form-control>
+          </nz-form-item>
+
          
 
         <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start">
             <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="nombre">Créditos</nz-form-label>
             <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=nameBodegaErrorMsg>
-              <input nz-input placeholder="Bodega"  formControlName="nombre" id="nombre" />
+              <nz-input-number placeholder="Créditos"  formControlName="creditos" id="creditos" [nzMin]="1" [nzMax]="999999999" [nzStep]="1"></nz-input-number> 
               <ng-template #nameBodegaErrorMsg let-control>
-                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un nombre!</ng-container>
-                <ng-container *ngIf="control.hasError('maxlength')">¡El nombre es demasiado largo!</ng-container>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese el número de créditos!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern')">¡Solo se pueden ingresar números!</ng-container>
     
                 
               </ng-template>
@@ -82,48 +104,64 @@
     
 
           <nz-form-item nz-col nzSpan="12" nz-row nzJustify="start" >
-            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" [nzSm]="24" [nzXs]="24" id="titulo" nzFor="ciudad" nzRequired>Bodega</nz-form-label>
-            <nz-form-control  nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" nzErrorTip="¡Elija una ciudad por favor!">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" [nzSm]="24" [nzXs]="24" id="titulo" nzFor="bodega" nzRequired>Bodega</nz-form-label>
+            <nz-form-control  nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" nzErrorTip="¡Elija una bodega por favor!">
               <nz-select
-                class='BodegaOptions'
-                id="ciudad"
-                formControlName="ciudad"    
-                nzPlaceHolder="Elija una ciudad por favor"
-                [ngModel]="'originalValue'" 
+                id="bodega"
+                formControlName="bodega"    
+                nzPlaceHolder="Elija una bodega por favor"
               >
-                <nz-option class='BodegaOptions' *ngFor="let city of listOfCities" nzValue={{city.id}} nzLabel={{city.nombre}}></nz-option>
-                <nz-option class='BodegaOptions' nzHide nzValue=originalValue nzLabel={{bodegaCiudad.ciudad_name}}></nz-option>
+                <nz-option  *ngFor="let city of listOfCities" nzValue={{city.id}} nzLabel={{city.nombre}}></nz-option>
 
               </nz-select>
             
             </nz-form-control>
           </nz-form-item>
+
+         
     </div>
     
     </form>
 
-    <h4 class='labelNombre' nz-typography nz-col nzSpan="24" id="titulo"> Imagenes		 </h4>
-    <nz-carousel [nzEffect]="effect" class='imagenesItem'>
+    <h4 class='labelNombreImagenes' nz-typography nz-col nzSpan="12" nzAlign= 'center' nzOffset="11" id="titulo"> Imágenes		 </h4>
+    <div nzSpan="6" nz-col ></div>
+    <h3 *ngIf="listOfItemImages.length == 0" nz-col nzSpan="12" nzOffset ="4" nzAlign= 'center'> No existen imágenes</h3>
+    <div nzSpan="2" *ngIf="listOfItemImages.length == 0" nz-col ></div>
+
+    <nz-carousel nzSpan="12"  nzOffset="6" nzAutoPlay class='imagenesItem' *ngIf="listOfItemImages.length != 0">
+      <div *ngFor="let imagen of listOfItemImages" nz-carousel-content  class="imagenDiv" >
         <img
+          class="imagenPaquete"
+          src="{{ url_backend }}{{ imagen.imagen }}"
+          alt="Sin imagen adjunta"
+          title=""
         
-        
-        class="imagenPaquete"
-        src="{{ url_backend }}{{ ruta }}"
-        alt="Sin imagen adjunta"
-        title=""
-        
-      />
-      </nz-carousel>
-  
+        />
+
+      </div>
+     
+    </nz-carousel>
+
+
     <div nz-typography nz-col nzSpan="24"></div>
+
+  
 
 </div>
 
-<div nz-row class="guardarButton">
+<div nz-row class="guardarButton" *ngIf="listOfItemImages.length != 0">
   <div nz-typography nz-col nzSpan="24"></div>
 
-  <button #Guardar (click)="actualizarBodega()" [disabled]="!bodegaForm.valid" nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
-  <button #Guardar (click)="actualizarBodega()" [disabled]="!bodegaForm.valid" nz-col nzSpan="2" nzOffset="1" nz-button nzType="primary"> Admitir </button>
+  <button #Guardar (click)="actualizarItemDescartado()"  nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
+  <button #Guardar (click)="actualizarItemAdmitido()" [disabled]="!itemForm.valid" nz-col nzSpan="2" nzOffset="1" nz-button nzType="primary"> Admitir </button>
+
+</div>
+
+<div nz-row class="guardarButtonAlter" *ngIf="listOfItemImages.length == 0">
+  <div nz-typography nz-col nzSpan="24"></div>
+
+  <button #Guardar (click)="actualizarItemDescartado()"  nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
+  <button #Guardar (click)="actualizarItemAdmitido()" [disabled]="!itemForm.valid" nz-col nzSpan="2" nzOffset="1" nz-button nzType="primary"> Admitir </button>
 
 </div>
 

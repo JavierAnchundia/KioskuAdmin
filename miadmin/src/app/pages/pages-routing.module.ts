@@ -5,6 +5,7 @@ import {WelcomeComponent} from './welcome/welcome.component';
 import {SubcategoriasComponent} from '../subcategorias/subcategorias.component';
 import {BodegaComponent} from '../bodega/bodega.component';
 import {ItemsComponent} from '../items/items.component';
+import {ProductosComponent} from '../productos/productos.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
   { path: 'items', 
   component: ItemsComponent,
   loadChildren: () => import('../items/items.module').then(m => m.ItemsModule)
+  },
+
+  { path: 'productos', 
+  component: ProductosComponent,
+  loadChildren: () => import('../productos/productos.module').then(m => m.ProductosModule)
   },
 
 ];

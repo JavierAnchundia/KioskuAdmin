@@ -20,6 +20,13 @@ export class ItemsService {
     return this._http.get(url);
   }
 
+  getItemsUserAccepted()
+  {
+    let url = URL_SERVICIOS.items_user_accepted;
+    
+    return this._http.get(url);
+  }
+
   getItemAssigned(key:number) {
     let url = URL_SERVICIOS.itemassigned + key + '/';
     
@@ -38,5 +45,27 @@ export class ItemsService {
 
   }
 
+  getItem(key:number)
+  {
+    let url = URL_SERVICIOS.item + key + '/';
+    
+    return this._http.get(url);
+  }
+
+  getItemImagenes(key:number)
+  {
+    let url = URL_SERVICIOS.item_imagen + key + '/';
+    
+    return this._http.get(url);
+
+  }
+
+  actualizarItem(item:FormData, key:number)
+  {
+    let url = URL_SERVICIOS.item + key + '/';
+    
+    return this._http.put(url, item/*, httpOptions*/);
+
+  }
 
 }

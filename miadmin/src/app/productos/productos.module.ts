@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ItemsRoutingModule } from './items-routing.module';
-import { AsignarseComponent } from './asignarse/asignarse.component';
+import { ProductosRoutingModule } from './productos-routing.module';
+import { CrearComponent } from './crear/crear.component';
 
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -18,26 +18,23 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 
 
 import { IconsProviderModule } from '../icons-provider.module';
-import { MisitemsComponent } from './misitems/misitems.component';
-import { EvaluarComponent } from './evaluar/evaluar.component';
-
-
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzAutocompleteModule} from 'ng-zorro-antd/auto-complete';
-import { NzInputNumberModule} from 'ng-zorro-antd/input-number';
+import { NzUploadModule} from 'ng-zorro-antd/upload';
 
+import { CrearProductFormComponent } from './crear-product-form/crear-product-form.component';
 
 
 @NgModule({
   declarations: [
-    AsignarseComponent,
-    MisitemsComponent,
-    EvaluarComponent
+    CrearComponent,
+    CrearProductFormComponent
   ],
   imports: [
     CommonModule,
-    ItemsRoutingModule,
+    ProductosRoutingModule,
+    CommonModule,
     NzTableModule,
     IconsProviderModule,
     NzDropDownModule,
@@ -52,8 +49,7 @@ import { NzInputNumberModule} from 'ng-zorro-antd/input-number';
     NzSelectModule,
     NzCarouselModule,
     NzAutocompleteModule,
-    NzInputNumberModule
-
+    NzUploadModule
   ]
 })
-export class ItemsModule { }
+export class ProductosModule { }

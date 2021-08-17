@@ -1,0 +1,108 @@
+.labelNombre{
+    font-weight: 700;
+  }
+  
+.nombreProducto{
+    margin-bottom: 20px;
+}
+
+.breadcrumbSpace
+  {
+    margin-bottom: 25px;
+  }
+
+.container {
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
+    display: flex;
+  }
+  
+.container .btn-holder {
+    justify-content: flex-end;
+    display: flex;
+  }
+
+.guardarButton
+{
+  margin-top: 180px;
+
+}
+
+
+
+
+
+
+
+
+
+*{
+    font-family: Nunito;
+  }
+  
+  .content{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+  
+  mat-card{
+    width: 90%;
+    align-items: center;
+    justify-content: center;
+    top: 30px;
+  }
+  
+  .item-form-field{
+    width: 100%;
+  }
+  
+  mat-card-title{
+    text-align: center;
+  }
+  
+  h1{
+    color: #732C7B;
+    text-align: center;
+  }
+  
+  .btn-submit {
+    font-size: 0.875rem;
+    border-radius: 20px;
+    float: right;
+    margin-top: 2px;
+    padding:0 20px;
+    height: 40px;
+    background-color: #f7d765;
+    border: 1px solid #f7d765;
+    color: #080808;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .btn-create:hover{
+    background-color: #f3cc3f;
+    cursor: pointer;
+  }
+  
+  :host ::ng-deep .upload-list-inline .ant-upload-list-item {
+    float: left;
+    width: 200px;
+    margin-right: 8px;
+  }
+  :host ::ng-deep .upload-list-inline [class*='-upload-list-rtl'] .ant-upload-list-item {
+    float: right;
+  }
+  :host ::ng-deep .upload-list-inline .ant-upload-animate-enter {
+    animation-name: uploadAnimateInlineIn;
+  }
+  :host ::ng-deep .upload-list-inline .ant-upload-animate-leave {
+    animation-name: uploadAnimateInlineOut;
+  }
+  
+  .count-div{
+    font-size: 11px;
+    color: rgba(128, 128, 128, 0.562);
+  }
+  

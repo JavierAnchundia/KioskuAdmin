@@ -15,9 +15,17 @@ export class SubcategoriaService {
     private http: HttpClient,
   ) { }
 
-  getSubcategorias(key:number)
+  getSubcategorias(categoriaKey:number)
   {
-    let url = URL_SERVICIOS.subcategoria_categoria + key + '/';
+    let url = URL_SERVICIOS.subcategoria_categoria + categoriaKey + '/';
+    
+    return this.http.get(url);
+    
+  }
+
+  getAllSubcategorias()
+  {
+    let url = URL_SERVICIOS.subcategoria;
     
     return this.http.get(url);
     

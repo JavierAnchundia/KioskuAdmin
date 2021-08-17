@@ -70,7 +70,7 @@
   nz-header {
     padding: 0;
     width: 100%;
-    z-index: 2;
+    z-index: 999999;
   }
   
   .app-header {
@@ -86,8 +86,12 @@
     margin-right: 24px;
     margin-top: 24px; 
     max-height: calc(100vh - 9rem);
+    background: #fff;
+    padding: 50px;
+
     overflow-y: auto;
 
+  
   }
   
   .inner-content {
