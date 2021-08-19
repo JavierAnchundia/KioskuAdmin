@@ -1,0 +1,48 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <i nz-icon nzType="home"></i>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <i nz-icon nzType="credit-card" nzTheme="outline"></i>
+      <span>Membresías</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div nz-row>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Membresías</h2>
+  <button routerLink="/inicio/membresia/crear" nzXs="4" nzSm="4" nzMd="6" nzLg="4" nzXl="4" nz-button nzType="primary">
+    Agregar membresía </button>
+</div>
+<nz-table #filterTable [nzData]="membershipList" nzTableLayout="fixed" nzShowPagination="true" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections">
+        {{ column.name }}
+      </th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of filterTable.data">
+      <td>{{ data.tipo }}</td>
+      <td>{{ data.pct_dscto }}</td>
+      <td>{{ data.tarifa }}</td>
+      <td>{{ data.valorCredito }}</td>
+      <td>
+        <a nz-button nzType="link" (click)="openEditMembership(data.id)">
+          <i nz-icon nzType="edit" nzTheme="fill"></i>
+        </a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-button nzType="link" nzDanger nz-popconfirm
+        nzPopconfirmTitle="¿Está seguro que desea eliminarla?"
+        nzPopconfirmPlacement="top"
+        (nzOnConfirm)="confirmDelete(data.id)"
+        >
+          <i nz-icon nzType="delete" nzTheme="fill"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

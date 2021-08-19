@@ -22,8 +22,13 @@ const URL_SERVICIOS = {
   ciudad:  URL_ROOT + '/ciudad/',
   itemunassigned: URL_ROOT + '/itemunassigned/',
   itemassigned: URL_ROOT + '/itemassigned/',
+<<<<<<< HEAD
   items_user_accepted: URL_ROOT + '/itemsuseraccepted/',
   item: URL_ROOT + '/item/',
+=======
+  membresia: URL_ROOT + '/membresia/',
+
+>>>>>>> fc6646892dd205dda04302c9540f3eade0ac4a12
   adminItem: URL_ROOT + '/adminItem/',
   producto: URL_ROOT + '/producto/',
   item_imagen: URL_ROOT + '/img-item/',
