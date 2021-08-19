@@ -170,7 +170,7 @@ export class CrearProductFormComponent implements OnInit {
         {
           this.addImageItem(producto.id)
             .then(img => {
-              Swal.close();
+             /* Swal.close();
               this.openSnackBar('El ítem se ha creado con éxito.', 'Cerrar');
               this.itemForm.patchValue({
                 nombre: '',
@@ -180,7 +180,7 @@ export class CrearProductFormComponent implements OnInit {
               for (let control in this.itemForm.controls) {
                 this.itemForm.controls[control].setErrors(null);
               }
-              this.fileList = [];
+              this.fileList = [];*/
             }
             )
             .catch(error => {

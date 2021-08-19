@@ -52,11 +52,8 @@ registerLocaleData(es, 'es');
     BodegaComponent,
     AuthComponent,
     ItemsComponent,
-<<<<<<< HEAD
     ProductosComponent,
-=======
     DashboardComponent,
->>>>>>> 6674e006fcc9f65c28f4da8deb6bbdadc87f0443
 
   ],
   imports: [
