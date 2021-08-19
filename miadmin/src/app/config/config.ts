@@ -19,6 +19,7 @@ const URL_SERVICIOS = {
   ciudad:  URL_ROOT + '/ciudad/',
   itemunassigned: URL_ROOT + '/itemunassigned/',
   itemassigned: URL_ROOT + '/itemassigned/',
+  membresia: URL_ROOT + '/membresia/',
 
   adminItem: URL_ROOT + '/adminItem/',
   statistics: URL_ROOT + '/statistics/',
