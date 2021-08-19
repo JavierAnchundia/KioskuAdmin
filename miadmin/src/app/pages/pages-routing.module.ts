@@ -6,6 +6,7 @@ import {SubcategoriasComponent} from '../subcategorias/subcategorias.component';
 import {BodegaComponent} from '../bodega/bodega.component';
 import {ItemsComponent} from '../items/items.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { MembresiaComponent } from '../membresia/membresia.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,11 @@ const routes: Routes = [
   { path: 'items',
   component: ItemsComponent,
   loadChildren: () => import('../items/items.module').then(m => m.ItemsModule)
+  },
+
+  { path: 'membresia',
+  component: MembresiaComponent,
+  loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule)
   },
 
   { path: '',

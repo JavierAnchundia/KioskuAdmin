@@ -1,0 +1,64 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <i nz-icon nzType="home"></i>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item routerLink="/inicio/membresia">
+    <a>
+      <i nz-icon nzType="credit-card" nzTheme="outline"></i>
+      <span>Membresías</span>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Editar</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div nz-row>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Membresía: {{this.currentMemb.tipo | uppercase}}</h2>
+</div>
+
+<form
+      nz-form [nzLayout]="membresiaForm.get('formLayout')?.value"
+      [formGroup]="membresiaForm"
+      (ngSubmit)="submitForm()"
+    >
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Tipo</nz-form-label>
+      <nz-form-control [nzSpan]="14" [nzErrorTip]="tipoErrorTpl">
+        <input nz-input formControlName="tipo"/>
+        <ng-template #tipoErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Pct. descuento</nz-form-label>
+      <nz-form-control [nzSpan]="14" [nzErrorTip]="pct_dsctoErrorTpl">
+        <input nz-input required formControlName="pct_dscto" type="number" />
+        <ng-template #pct_dsctoErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Tarifa</nz-form-label>
+      <nz-form-control [nzSpan]="14" [nzErrorTip]="tarifaErrorTpl">
+        <input nz-input formControlName="tarifa" type="number"/>
+        <ng-template #tarifaErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="4">Valor de crédito:</nz-form-label>
+      <nz-form-control [nzSpan]="14" [nzErrorTip]="valorCreditoErrorTpl">
+        <input nz-input formControlName="valorCredito" type="number">
+        <ng-template #valorCreditoErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzOffset]="4" [nzSpan]="12">
+        <button nz-button nzType="primary" [disabled]="!membresiaForm.valid">Guardar</button>
+      </nz-form-control>
+    </nz-form-item>
+    </form>
+
