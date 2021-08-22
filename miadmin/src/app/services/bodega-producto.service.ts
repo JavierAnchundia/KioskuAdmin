@@ -5,28 +5,24 @@ import URL_SERVICIOS from 'src/app/config/config';
 import { Router } from '@angular/router';
 import { map, tap } from "rxjs/operators";
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class EstadoService {
+export class BodegaProductoService {
 
   constructor(
     private _http: HttpClient,
   ) { }
 
 
-  getEstado(estado:string) {
-    let url = URL_SERVICIOS.estado_id + estado + '/';
-    return this._http.get(url);
-  }
-
-  uptdateEstado(estado:FormData, key:number)
+  crearBodegaProducto(bodegaProducto:FormData)
   {
-    let url = URL_SERVICIOS.estado + key + '/';
-    
-    return this._http.put(url, estado/*, httpOptions*/);
+    let url = URL_SERVICIOS.bodega_producto;
+    /*let httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + this.getToken(),
+      })
+    }*/
+    return this._http.post(url, bodegaProducto/*, httpOptions*/);
   }
-
- 
 }

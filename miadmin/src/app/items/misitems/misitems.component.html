@@ -43,7 +43,7 @@
             [nzFilterMultiple]="listOfColumns[1].filterMultiple"
             [nzFilterFn]="listOfColumns[1].filterFn"
             nzCustomFilter 
-            class="header"
+            class="header descriptionTh"
           >
             {{ listOfColumns[1].name }}
             <nz-filter-trigger [(nzVisible)]="visibleDescripcion" [nzActive]="searchValueDescripcion.length > 0" [nzDropdownMenu]="menuDescripcion">
@@ -73,10 +73,25 @@
           [nzFilterMultiple]="listOfColumns[3].filterMultiple"
           [nzFilterFn]="listOfColumns[3].filterFn"
           nzCustomFilter 
-          class="header"
+          class="header estadoTh"
         >
           {{ listOfColumns[3].name }}
           <nz-filter-trigger [(nzVisible)]="visibleEstado" [nzActive]="searchValueEstado.length > 0" [nzDropdownMenu]="menuEstado">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+          </th>
+
+          <th
+          [nzSortOrder]="listOfColumns[4].sortOrder"
+          [nzSortFn]="listOfColumns[4].sortFn"
+          [nzSortDirections]="listOfColumns[4].sortDirections"
+          [nzFilterMultiple]="listOfColumns[4].filterMultiple"
+          [nzFilterFn]="listOfColumns[4].filterFn"
+          nzCustomFilter 
+          class="header"
+        >
+          {{ listOfColumns[4].name }}
+          <nz-filter-trigger [(nzVisible)]="visibleFechaActualizacion" [nzActive]="searchValueFechaActualizacion.length > 0" [nzDropdownMenu]="menuFechaActualizacion">
             <i nz-icon nzType="search"></i>
           </nz-filter-trigger>
           </th>
@@ -90,6 +105,7 @@
           <td>{{ data.descripcion }}</td>
           <td >{{ data.entrega }}</td>
           <td >{{ data.estado_name }}</td>
+          <td >{{ data.estado_date_updated }}</td>
 
   
           <!--<td class="iconoActionEditar" nzAlign= 'center'>
@@ -98,11 +114,11 @@
               </a>
           </td>-->
           <td class="iconoActionEliminar"  nzAlign= 'center'>
-              <a *ngIf="data.estado_name == porEvaluar" [routerLink]="['/inicio/items/evaluar']" [queryParams]= "{id: data.id}" >
+              <a *ngIf="data.estado_name.toLowerCase() == porEvaluar" [routerLink]="['/inicio/items/evaluar']" [queryParams]= "{id: data.id}" >
                 Evaluar            
               </a>
 
-              <p *ngIf="data.estado_name != porEvaluar"  >
+              <p *ngIf="data.estado_name.toLowerCase() != porEvaluar" class='evaluado' >
                 Evaluado            
               </p>
           </td>
@@ -144,6 +160,16 @@
       <div class="search-box">
         <input type="text" nz-input placeholder="Buscar estado" [(ngModel)]="searchValueEstado" />
         <button nz-button nzSize="small" nzType="primary" (click)="searchEstado()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="resetEstado()">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <nz-dropdown-menu #menuFechaActualizacion="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Buscar fecha de actualización" [(ngModel)]="searchValueFechaActualizacion" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchFechaActualizacion()" class="search-button">Buscar</button>
         <button nz-button nzSize="small" (click)="resetEstado()">Reiniciar</button>
       </div>
     </div>

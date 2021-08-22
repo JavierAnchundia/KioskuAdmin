@@ -31,7 +31,7 @@ export class EditarComponent implements OnInit {
   idbodega:number = 0;
   selected:number[] = [];
   idCiudad:number = 1;
-  bodegaCiudad:BodegaCiudad = new BodegaCiudad(0,"","",0,"");
+  bodegaCiudad:BodegaCiudad = new BodegaCiudad(0,"","",true,0,"");
   //@ViewChild('myselect') myselect: ElementRef<any>;
 
   constructor(

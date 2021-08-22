@@ -45,7 +45,8 @@
           [nzFilterMultiple]="listOfColumns[1].filterMultiple"
           [nzFilterFn]="listOfColumns[1].filterFn"
           nzCustomFilter 
-          class="header"
+          class="header descriptionTh"
+          
         >
           {{ listOfColumns[1].name }}
           <nz-filter-trigger [(nzVisible)]="visibleDescripcion" [nzActive]="searchValueDescripcion.length > 0" [nzDropdownMenu]="menuDescripcion">
@@ -68,7 +69,7 @@
           </nz-filter-trigger>
         </th>
 
-        <th class="header"  nzAlign= 'center'> Seleccionar</th>
+        <th class="header accionTh"  nzAlign= 'center'> Seleccionar</th>
       </tr>
     </thead>
     <tbody>

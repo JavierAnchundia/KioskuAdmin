@@ -152,7 +152,7 @@
 <div nz-row class="guardarButton" *ngIf="listOfItemImages.length != 0">
   <div nz-typography nz-col nzSpan="24"></div>
 
-  <button #Guardar (click)="actualizarItemDescartado()"  nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
+  <button #Guardar (click)="actualizarItemDescartado()" class='descartarButton' nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
   <button #Guardar (click)="actualizarItemAdmitido()" [disabled]="!itemForm.valid" nz-col nzSpan="2" nzOffset="1" nz-button nzType="primary"> Admitir </button>
 
 </div>
@@ -160,7 +160,7 @@
 <div nz-row class="guardarButtonAlter" *ngIf="listOfItemImages.length == 0">
   <div nz-typography nz-col nzSpan="24"></div>
 
-  <button #Guardar (click)="actualizarItemDescartado()"  nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
+  <button #Guardar (click)="actualizarItemDescartado()" class='descartarButton' nz-col nzSpan="2" nzOffset="19" nz-button nzType="primary"> Descartar </button>
   <button #Guardar (click)="actualizarItemAdmitido()" [disabled]="!itemForm.valid" nz-col nzSpan="2" nzOffset="1" nz-button nzType="primary"> Admitir </button>
 
 </div>

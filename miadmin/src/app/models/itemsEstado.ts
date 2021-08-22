@@ -10,7 +10,7 @@ export class ItemEstado {
         
         public estado: number,
         public estado_name: string,
-
+        public estado_date_updated: string,
         public propietario: number,
 
 

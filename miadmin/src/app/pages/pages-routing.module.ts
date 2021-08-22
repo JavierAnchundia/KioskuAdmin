@@ -37,18 +37,15 @@ const routes: Routes = [
   loadChildren: () => import('../items/items.module').then(m => m.ItemsModule)
   },
 
-<<<<<<< HEAD
   { path: 'productos', 
   component: ProductosComponent,
   loadChildren: () => import('../productos/productos.module').then(m => m.ProductosModule)
   },
-=======
   { path: 'membresia',
   component: MembresiaComponent,
   loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule)
   },
 
->>>>>>> fc6646892dd205dda04302c9540f3eade0ac4a12
   { path: '',
     component: DashboardComponent,
   }

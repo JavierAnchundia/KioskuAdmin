@@ -34,7 +34,7 @@ export class CrearComponent implements OnInit {
 
   ) {
     this.bodegaForm = this._formBuilder.group({
-      nombre: ["", [Validators.maxLength(100), Validators.required]],
+      //nombre: ["", [Validators.maxLength(100), Validators.required]],
       direccion: ["", [Validators.maxLength(100), Validators.required]],
       ciudad: ["", [Validators.maxLength(20), Validators.required]],
 
@@ -75,7 +75,7 @@ export class CrearComponent implements OnInit {
   public crearBodega()
    {
     const formData = new FormData();
-    formData.append('nombre',this.bodegaForm.value.nombre);
+    //formData.append('nombre',this.bodegaForm.value.nombre);
     formData.append('direccion',this.bodegaForm.value.direccion);
     formData.append('ciudad',this.bodegaForm.value.ciudad);
 

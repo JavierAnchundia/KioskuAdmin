@@ -18,17 +18,16 @@ const URL_SERVICIOS = {
   subcategoria_categoria: URL_ROOT + '/subcategoriacategoria/',
   subcategoria: URL_ROOT + '/subcategoria/',
   bodegas_ciudad: URL_ROOT + '/bodegasciudad/',
+  bodegas_ciudad_activas: URL_ROOT + '/bodegasciudadactivas/',
+
   bodega_viewset: URL_ROOT + '/bodega/',
   ciudad:  URL_ROOT + '/ciudad/',
   itemunassigned: URL_ROOT + '/itemunassigned/',
   itemassigned: URL_ROOT + '/itemassigned/',
-<<<<<<< HEAD
   items_user_accepted: URL_ROOT + '/itemsuseraccepted/',
   item: URL_ROOT + '/item/',
-=======
   membresia: URL_ROOT + '/membresia/',
 
->>>>>>> fc6646892dd205dda04302c9540f3eade0ac4a12
   adminItem: URL_ROOT + '/adminItem/',
   producto: URL_ROOT + '/producto/',
   item_imagen: URL_ROOT + '/img-item/',
@@ -36,6 +35,8 @@ const URL_SERVICIOS = {
   estado: URL_ROOT + '/estado/',
   estado_id: URL_ROOT + '/estado-id/',
   bodega_item: URL_ROOT + '/bodega-item/',
+  bodega_producto: URL_ROOT + '/bodega-producto/',
+
   statistics: URL_ROOT + '/statistics/',
   dailyOrders: URL_ROOT + '/dailyOrders/',
   recentSubmissions: URL_ROOT + '/recentSubmissions/',

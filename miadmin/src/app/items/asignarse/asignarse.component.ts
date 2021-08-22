@@ -121,11 +121,11 @@ export class AsignarseComponent implements OnInit {
     this.visibleTitulo = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.titulo.indexOf(this.searchValueTitulo) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.titulo.toLowerCase().indexOf(this.searchValueTitulo.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.titulo.indexOf(this.searchValueTitulo) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.titulo.toLowerCase().indexOf(this.searchValueTitulo.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -134,11 +134,11 @@ export class AsignarseComponent implements OnInit {
     this.visibleDescripcion = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.descripcion.indexOf(this.searchValueDescripcion) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.descripcion.toLowerCase().indexOf(this.searchValueDescripcion.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.descripcion.indexOf(this.searchValueDescripcion) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.descripcion.toLowerCase().indexOf(this.searchValueDescripcion.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -147,11 +147,11 @@ export class AsignarseComponent implements OnInit {
     this.visibleEntrega = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.entrega.indexOf(this.searchValueEntrega) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.entrega.toLowerCase().indexOf(this.searchValueEntrega.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.entrega.indexOf(this.searchValueEntrega) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.entrega.toLowerCase().indexOf(this.searchValueEntrega.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }

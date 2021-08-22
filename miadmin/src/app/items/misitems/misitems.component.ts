@@ -26,13 +26,15 @@ export class MisitemsComponent implements OnInit {
   searchValueDescripcion = '';
   searchValueEntrega = '';
   searchValueEstado = '';
+  searchValueFechaActualizacion = '';
 
-  porEvaluar="Por Evaluar";
+  porEvaluar="por evaluar";
   
   visibleTitulo = false;
   visibleDescripcion = false;
   visibleEntrega = false;
   visibleEstado = false;
+  visibleFechaActualizacion = false;
 
   multiplefilter = false;
 
@@ -79,6 +81,16 @@ export class MisitemsComponent implements OnInit {
       filterMultiple: true,
       listOfFilter: [],
       filterFn: (list: string[], item: ItemEstado) => list.some(estado_name => item.estado_name.indexOf(estado_name) !== -1)
+    },
+
+    {
+      name: 'Fecha de actualización del estado',
+      sortOrder: null,
+      sortFn: (a: ItemEstado, b: ItemEstado) => a.estado_date_updated.localeCompare(b.estado_date_updated),
+      sortDirections: ['ascend', 'descend', null],
+      filterMultiple: true,
+      listOfFilter: [],
+      filterFn: (list: string[], item: ItemEstado) => list.some(estado_date_updated => item.estado_date_updated.indexOf(estado_date_updated) !== -1)
     },
     
     
@@ -141,15 +153,21 @@ export class MisitemsComponent implements OnInit {
     this.searchEstado();
   }
 
+  resetFechaActualizacion(): void {
+    this.searchValueFechaActualizacion = '';
+    this.multiplefilter = false;
+    this.searchFechaActualizacion();
+  }
+
   searchTitulo(): void {
     this.visibleTitulo = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.titulo.indexOf(this.searchValueTitulo) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.titulo.toLowerCase().indexOf(this.searchValueTitulo.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.titulo.indexOf(this.searchValueTitulo) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.titulo.toLowerCase().indexOf(this.searchValueTitulo.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -158,11 +176,11 @@ export class MisitemsComponent implements OnInit {
     this.visibleDescripcion = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.descripcion.indexOf(this.searchValueDescripcion) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.descripcion.toLowerCase().indexOf(this.searchValueDescripcion.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.descripcion.indexOf(this.searchValueDescripcion) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.descripcion.toLowerCase().indexOf(this.searchValueDescripcion.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -171,11 +189,11 @@ export class MisitemsComponent implements OnInit {
     this.visibleEntrega = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.entrega.indexOf(this.searchValueEntrega) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.entrega.toLowerCase().indexOf(this.searchValueEntrega.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.entrega.indexOf(this.searchValueEntrega) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.entrega.toLowerCase().indexOf(this.searchValueEntrega.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -184,11 +202,24 @@ export class MisitemsComponent implements OnInit {
     this.visibleEstado = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.estado_name.indexOf(this.searchValueEstado) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.estado_name.toLowerCase().indexOf(this.searchValueEstado.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.estado_name.indexOf(this.searchValueEstado) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.estado_name.toLowerCase().indexOf(this.searchValueEstado.toLowerCase()) !== -1);
+    }
+    this.multiplefilter = true;
+  }
+
+  searchFechaActualizacion(): void {
+    this.visibleFechaActualizacion = false;
+    if(this.multiplefilter)
+    {
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: ItemEstado) => item.estado_date_updated.toLowerCase().indexOf(this.searchValueFechaActualizacion.toLowerCase()) !== -1);
+    }
+    else
+    {
+      this.listOfDisplayData = this.listOfData.filter((item: ItemEstado) => item.estado_date_updated.toLowerCase().indexOf(this.searchValueFechaActualizacion.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }

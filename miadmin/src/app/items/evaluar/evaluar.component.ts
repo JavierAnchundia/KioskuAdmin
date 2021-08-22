@@ -90,8 +90,8 @@ export class EvaluarComponent implements OnInit {
       }
     )
     this.cargarBodegas();
-    this.cargarEstadoAdmitido();
-    this.cargarEstadoDescartado();
+    //this.cargarEstadoAdmitido();
+    //this.cargarEstadoDescartado();
 
     this.cargarItem(this.idItem);
     
@@ -123,7 +123,7 @@ export class EvaluarComponent implements OnInit {
   }
 
   cargarBodegas(){
-    this._bodega.getBodegas()
+    this._bodega.getActiveBodegas()
     .pipe(
       catchError((err) => {
         Swal.close();
@@ -234,7 +234,7 @@ export class EvaluarComponent implements OnInit {
       
   }
 
-  private async cargarEstadoAdmitido()
+  /*private async cargarEstadoAdmitido()
   {
     
     await this._estado.getEstado('Admitido')
@@ -254,9 +254,9 @@ export class EvaluarComponent implements OnInit {
     }
       )
       
-  }
+  }*/
 
-  private async cargarEstadoDescartado()
+  /*private async cargarEstadoDescartado()
   {
     
     await this._estado.getEstado('Descartado')
@@ -276,16 +276,48 @@ export class EvaluarComponent implements OnInit {
     }
       )
       
-  }
+  }*/
 
    public actualizarItemAdmitido()
    {
     const formData = new FormData();
     formData.append('creditos',this.itemForm.value.creditos);
-    formData.append('estado',this.estadoAdmitido.id as any as string);
 
     this._item
        .actualizarItem(formData,this.idItem)
+       .pipe(
+        catchError((err) => {
+          Swal.close();
+          Swal.fire(
+            "Ha ocurrido un error al admitir este ítem"
+          );
+          return throwError(err);
+        })
+      )
+      .subscribe(
+        async (resp: any) => {  
+          console.log(resp);
+          this.actualizarEstadoItem(this.itemInicial.estado);
+
+          return true;
+        },
+        (error:any) => {
+          console.error('Error:' + error);
+          return throwError(error);
+        },
+        () => console.log('HTTP request completed.')
+      );
+      
+
+   }
+
+   public actualizarEstadoItem(estadoId:number)
+   {
+    const formData = new FormData();
+    formData.append('estado','Admitido');
+
+    this._estado
+       .uptdateEstado(formData,estadoId)
        .pipe(
         catchError((err) => {
           Swal.close();
@@ -315,10 +347,10 @@ export class EvaluarComponent implements OnInit {
    public actualizarItemDescartado()
    {
     const formData = new FormData();
-    formData.append('estado',this.estadoDescartado.id as any as string);
+    formData.append('estado','Descartado');
 
-    this._item
-       .actualizarItem(formData,this.idItem)
+    this._estado
+       .uptdateEstado(formData, this.itemInicial.estado)
        .pipe(
         catchError((err) => {
           Swal.close();

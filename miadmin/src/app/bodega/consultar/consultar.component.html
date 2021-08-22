@@ -83,8 +83,9 @@
               </a>
           </td>
           <td class="iconoActionEliminar"  nzAlign= 'center'>
-              <a  (click)="eliminarBodega(data.id)">
-                  <i  nz-icon nzType="delete" nzTheme="outline"></i>
+              <a  (click)="eliminarBodega(data.id, data.is_active)">
+                <i *ngIf='data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para eliminado lógico" nz-icon nzType="stop" nzTheme="outline"></i>
+                <i *ngIf='!data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para activado lógico"nz-icon nzType="check-circle" nzTheme="outline"></i>
               </a>
           </td>
         </tr>

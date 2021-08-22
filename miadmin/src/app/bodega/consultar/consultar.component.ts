@@ -110,11 +110,11 @@ export class ConsultarComponent implements OnInit {
     this.visibleName = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: BodegaCiudad) => item.nombre.indexOf(this.searchValueName) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: BodegaCiudad) => item.nombre.toLowerCase().indexOf(this.searchValueName.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: BodegaCiudad) => item.nombre.indexOf(this.searchValueName) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: BodegaCiudad) => item.nombre.toLowerCase().indexOf(this.searchValueName.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -123,11 +123,11 @@ export class ConsultarComponent implements OnInit {
     this.visibleDireccion = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: BodegaCiudad) => item.direccion.indexOf(this.searchValueDireccion) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: BodegaCiudad) => item.direccion.toLowerCase().indexOf(this.searchValueDireccion.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: BodegaCiudad) => item.direccion.indexOf(this.searchValueDireccion) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: BodegaCiudad) => item.direccion.toLowerCase().indexOf(this.searchValueDireccion.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -136,11 +136,11 @@ export class ConsultarComponent implements OnInit {
     this.visibleCiudad = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: BodegaCiudad) => item.ciudad_name.indexOf(this.searchValueCiudad) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: BodegaCiudad) => item.ciudad_name.toLowerCase().indexOf(this.searchValueCiudad.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: BodegaCiudad) => item.ciudad_name.indexOf(this.searchValueCiudad) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: BodegaCiudad) => item.ciudad_name.toLowerCase().indexOf(this.searchValueCiudad.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -163,26 +163,45 @@ export class ConsultarComponent implements OnInit {
       
   }
 
-  public eliminarBodega = async (key:number) => {
+  public eliminarBodega = async (key:number, is_active:boolean) => {
+
+    let titleSwal = is_active ? "¿Está seguro que desea eliminar esta bodega?" : "¿Está seguro que desea activar esta bodega?"
+    let respuestaExitoSwal = is_active ? "¡Eliminado lógico de la bodega exitoso!" : "¡Activado lógico de la bodega exitoso!"
+    let respuestaFallidaSwal = is_active ? "Ha ocurrido un error inesperado al eliminar lógicamente esta bodega" : "Ha ocurrido un error inesperado al activar lógicamente esta bodega"
+    let textoBotonSwal = is_active ? "Eliminar" : "Activar"
+
     Swal.fire({
-      title: '¿Está seguro que desea eliminar esta bodega?',
-      text: "¡No podrá deshacer esta acción!",
+      title: titleSwal,
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
+      confirmButtonColor: '#6144ff',
       cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar',
+      confirmButtonText: textoBotonSwal,
       cancelButtonText: 'Cancelar',
 
     }).then((result) => {
       if (result.isConfirmed) {
+
+        const formData = new FormData();
+        console.log(is_active)
+
+        if(is_active)
+        {
+          console.log(is_active)
+          formData.append('is_active', false as any as string);
+        }
+        else
+        {
+          formData.append('is_active', 'True');
+        }
+
         this._bodega
-        .deleteBodega(key)
+        .actualizarBodega(formData,key)
         .pipe(
          catchError((err) => {
            Swal.close();
            Swal.fire(
-             "Ha ocurrido un error inesperado al eliminar esa bodega"
+            respuestaFallidaSwal
            );
            return throwError(err);
          })
@@ -191,7 +210,7 @@ export class ConsultarComponent implements OnInit {
          async (resp: any) => {
           Swal.close();
           
-          Swal.fire('¡Bodega eliminada exitosamente!');
+          Swal.fire(respuestaExitoSwal);
           
           this.cargarBodegas();
            return true;
@@ -204,7 +223,6 @@ export class ConsultarComponent implements OnInit {
        );
       }
     })  
-  
    }
 
 

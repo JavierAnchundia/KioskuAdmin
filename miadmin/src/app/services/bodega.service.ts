@@ -20,6 +20,12 @@ export class BodegaService {
     return this._http.get(url);
   }
 
+  getActiveBodegas() {
+    let url = URL_SERVICIOS.bodegas_ciudad_activas;
+    
+    return this._http.get(url);
+  }
+
   deleteBodega(key:number)
   {
     let url = URL_SERVICIOS.bodega_viewset + key + '/';

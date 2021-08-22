@@ -98,3 +98,8 @@
     width: 550px;
   }
 
+  .descartarButton{
+    background-color: #f7db7d;
+    border-color: #f7db7d;
+    color: black;
+  }

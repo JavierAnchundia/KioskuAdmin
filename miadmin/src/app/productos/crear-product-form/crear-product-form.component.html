@@ -40,8 +40,9 @@
 
           <nz-form-item nz-col nzSpan="24" nz-row nzJustify="start">
             <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="descripcion">Descripción</nz-form-label>
-            <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=descripcionProductErrorMsg>
-              <input nz-input placeholder="Descripcióon"  formControlName="descripcion" id="descripcion" />
+            <nz-form-control nzSpan="10" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=descripcionProductErrorMsg>
+
+              <textarea nz-input placeholder="Descripción" formControlName="descripcion" id="descripcion" [nzAutosize]="{ minRows: 2, maxRows: 5 }"></textarea>
               <ng-template #descripcionProductErrorMsg let-control>
                 <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese una descripción!</ng-container>
                 <ng-container *ngIf="control.hasError('maxlength')">¡La descripción es demasiada largo!</ng-container>
@@ -96,7 +97,9 @@
           <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
             <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="peso">Peso </nz-form-label>
             <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=pesoProductoErrorMsg>
-              <input nz-input placeholder="Peso"  formControlName="peso" id="peso" />
+              <nz-input-group nzAddOnAfter="lb">
+                <input nz-input placeholder="Peso"  formControlName="peso" id="peso" />
+              </nz-input-group>
               <ng-template #pesoProductoErrorMsg let-control>
                 <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un peso!</ng-container>
                 <ng-container *ngIf="control.hasError('maxlength')">¡El peso es demasiado largo!</ng-container>
@@ -106,20 +109,21 @@
             </nz-form-control>
           </nz-form-item>
 
-          <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
+          <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start" >
             <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="dimensiones">Dimensiones </nz-form-label>
             <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=dimensionProductoErrorMsg>
-              <input nz-input placeholder="Dimensiones"  formControlName="dimensiones" id="dimensiones" />
+              <nz-input-group nzAddOnAfter="cm">
+                <input nz-input placeholder="Dimensiones"  formControlName="dimensiones" id="dimensiones"  />
+              </nz-input-group>
               <ng-template #dimensionProductoErrorMsg let-control>
                 <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese las dimensiones!</ng-container>
                 <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiado largo!</ng-container>
-    
-                
               </ng-template>
             </nz-form-control>
           </nz-form-item>
 
-          <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
+
+          <nz-form-item  nz-col nzSpan="5" nz-row nzJustify="start">
             <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="material">Material </nz-form-label>
             <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=materialProductoErrorMsg>
               <input nz-input placeholder="Material"  formControlName="material" id="material" />
@@ -133,13 +137,16 @@
           </nz-form-item>
 
           <nz-form-item  nz-col nzSpan="6" nz-row nzJustify="start">
-            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="precio">Precio </nz-form-label>
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="precio">Créditos </nz-form-label>
             <nz-form-control nzSpan="18" nz-col  [nzSm]="18" [nzXs]="18" [nzErrorTip]=precioProdutoErrorMsg>
-              <input nz-input placeholder="Precio"  formControlName="precio" id="precio" />
+              <nz-input-group >
+                <input nz-input placeholder="Créditos"  formControlName="precio" id="precio" />
+              </nz-input-group>
               <ng-template #precioProdutoErrorMsg let-control>
-                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un precio!</ng-container>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese los créditos!</ng-container>
                 <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiada largo!</ng-container>
-    
+                <ng-container *ngIf="control.hasError('pattern')">¡Solo se pueden ingresar números!</ng-container>
+
                 
               </ng-template>
             </nz-form-control>

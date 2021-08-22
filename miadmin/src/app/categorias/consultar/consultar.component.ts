@@ -71,7 +71,7 @@ export class ConsultarComponent implements OnInit {
 
   search(): void {
     this.visible = false;
-    this.listOfDisplayData = this.listOfData.filter((item: Categoria) => item.nombre.indexOf(this.searchValue) !== -1);
+    this.listOfDisplayData = this.listOfData.filter((item: Categoria) => item.nombre.toLowerCase().indexOf(this.searchValue.toLowerCase()) !== -1);
   }
 
   cargarCategorias(){

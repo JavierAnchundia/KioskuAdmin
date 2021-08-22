@@ -12,6 +12,8 @@ import { CategoriaService } from '../../services/categoria.service';
 import { SubcategoriaService } from '../../services/subcategoria.service';
 import { CiudadService } from '../../services/ciudad.service';
 import { BodegaService } from '../../services/bodega.service';
+import { BodegaItemService } from '../../services/bodega-item.service';
+
 import { ImagenProductoService } from '../../services/imagen-producto.service';
 
 import { BodegaCiudad } from 'src/app/models/bodegaCiudad';
@@ -22,6 +24,7 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 import { ItemsService } from 'src/app/services/items.service';
 import { ProductoService } from 'src/app/services/producto.service';
+import { BodegaProductoService } from 'src/app/services/bodega-producto.service';
 
 @Component({
   selector: 'app-crear-product-form',
@@ -70,7 +73,8 @@ export class CrearProductFormComponent implements OnInit {
     private _categoria: CategoriaService,
     private _subcategoria:SubcategoriaService,
     private _imagenProducto:ImagenProductoService,
-
+    private _bodegaProducto:BodegaProductoService,
+    
   ) {
     this.productoForm = this._formBuilder.group({
       nombre: ["", [Validators.maxLength(50), Validators.required]],
@@ -80,7 +84,7 @@ export class CrearProductFormComponent implements OnInit {
       peso: ["", [Validators.maxLength(8), Validators.required]],
       dimensiones: ["", [Validators.maxLength(200), Validators.required]],
       material: ["", [Validators.maxLength(100), Validators.required]],
-      precio: ["", [Validators.maxLength(8), Validators.required]],
+      precio: ["", [Validators.maxLength(8), Validators.required, Validators.pattern("^[0-9]*$")]],
       bodega: ["", [Validators.maxLength(100), Validators.required]],
 
       remember: [true]
@@ -144,6 +148,8 @@ export class CrearProductFormComponent implements OnInit {
     formData.append('descripcion',this.productoForm.value.descripcion);
     formData.append('dimensiones',this.productoForm.value.dimensiones);
     formData.append('material',this.productoForm.value.material);
+    formData.append('estado',this.itemInicial.estado as any as string);
+
     //formData.append('disponible','True');
     formData.append('titulo',this.productoForm.value.nombre);
     //formData.append('bodega',this.productoForm.value.bodega);
@@ -168,24 +174,7 @@ export class CrearProductFormComponent implements OnInit {
         
         if(producto)
         {
-          this.addImageItem(producto.id)
-            .then(img => {
-             /* Swal.close();
-              this.openSnackBar('El ítem se ha creado con éxito.', 'Cerrar');
-              this.itemForm.patchValue({
-                nombre: '',
-                descripcion: '',
-                entrega: null,
-              });
-              for (let control in this.itemForm.controls) {
-                this.itemForm.controls[control].setErrors(null);
-              }
-              this.fileList = [];*/
-            }
-            )
-            .catch(error => {
-              console.log(error);
-            })
+          this.crearBodegaProducto(producto.id);
         }
          
                   
@@ -201,7 +190,7 @@ export class CrearProductFormComponent implements OnInit {
    }
 
    cargarBodegas(){
-    this._bodega.getBodegas()
+    this._bodega.getActiveBodegas()
     .subscribe((resp:any)=>{
       this.listOfBodegas = [];
       for (var i =0; i < resp.length; i++){       
@@ -288,6 +277,80 @@ export class CrearProductFormComponent implements OnInit {
     console.log(imagesList);
     
     return this._imagenProducto.createImagenProducto({imagesList})
+  }
+
+  public crearBodegaProducto(idProducto: string)
+  {
+   const formData = new FormData();
+   //formData.append('nombre',this.bodegaForm.value.nombre);
+   formData.append('producto', idProducto);
+   formData.append('bodega',this.productoForm.value.bodega);
+   formData.append('cantidad',this.itemInicial.cantidad as any as string);
+
+   this._bodegaProducto
+      .crearBodegaProducto(formData)
+      .pipe(
+       catchError((err) => {
+         Swal.close();
+         Swal.fire(
+          "Ha ocurrido un error al crear este producto"
+         );
+         return throwError(err);
+       })
+     )
+     .subscribe(
+       async (resp: any) => {  
+
+        this.addImageItem(idProducto)
+        .then(img => {
+
+          Swal.fire({
+            title:'El producto se ha creado con éxito.'})
+            .then((result) => {
+            if (result.dismiss === Swal.DismissReason.backdrop) {
+              this._router.navigate(['/inicio/productos/crear']);
+ 
+            }
+ 
+            if (result.isConfirmed) {
+              this._router.navigate(['/inicio/productos/crear']);
+ 
+            }
+          });
+         
+          this.productoForm.patchValue({
+            nombre: '',
+            descripcion: '',
+            categoria: '',
+            subcategoria: '',
+            peso: '',
+            dimensiones: '',
+            material: '',
+            precio: '',
+            bodega: '',
+          });
+
+          for (let control in this.productoForm.controls) {
+            this.productoForm.controls[control].setErrors(null);
+          }
+          this.fileList = [];
+
+          return true;
+         
+        }
+        )
+        .catch(error => {
+          console.log(error);
+        })
+       },
+       (error:any) => {
+         console.error('Error:' + error);
+         return throwError(error);
+       },
+       () => console.log('HTTP request completed.')
+     );
+     
+
   }
 
   /*addEstado(): Promise<any>{

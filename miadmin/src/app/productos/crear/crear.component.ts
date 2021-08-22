@@ -90,14 +90,11 @@ export class CrearComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.cargarItemUnassigned()  }
+    this.cargarItemUnassigned() 
 
-
-  public verDetallef = (key:number) => {
-    let id:number = key;
-    console.log(id);
+   
+     
   }
-
 
   resetTitulo(): void {
     this.searchValueTitulo = '';
@@ -121,11 +118,11 @@ export class CrearComponent implements OnInit {
     this.visibleTitulo = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.titulo.indexOf(this.searchValueTitulo) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.titulo.toLowerCase().indexOf(this.searchValueTitulo.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.titulo.indexOf(this.searchValueTitulo) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.titulo.toLowerCase().indexOf(this.searchValueTitulo.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -134,11 +131,11 @@ export class CrearComponent implements OnInit {
     this.visibleDescripcion = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.descripcion.indexOf(this.searchValueDescripcion) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.descripcion.toLowerCase().indexOf(this.searchValueDescripcion.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.descripcion.indexOf(this.searchValueDescripcion) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.descripcion.toLowerCase().indexOf(this.searchValueDescripcion.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -147,11 +144,11 @@ export class CrearComponent implements OnInit {
     this.visibleCantidad = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.entrega.indexOf(this.searchValueCantidad) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.entrega.toLowerCase().indexOf(this.searchValueCantidad.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.entrega.indexOf(this.searchValueCantidad) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.entrega.toLowerCase().indexOf(this.searchValueCantidad.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }
@@ -174,230 +171,5 @@ export class CrearComponent implements OnInit {
       )
       
   }
-
-  /*public eliminarBodega = async (key:number) => {
-    Swal.fire({
-      title: '¿Está seguro que desea eliminar esta bodega?',
-      text: "¡No podrá deshacer esta acción!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._bodega
-        .deleteBodega(key)
-        .pipe(
-         catchError((err) => {
-           Swal.close();
-           Swal.fire(
-             "Ha ocurrido un error inesperado al eliminar esa bodega"
-           );
-           return throwError(err);
-         })
-       )
-       .subscribe(
-         async (resp: any) => {
-          Swal.close();
-          
-          Swal.fire('Bodega eliminada exitosamente!');
-          
-          this.cargarBodegas();
-           return true;
-         },
-         (error:any) => {
-           console.error('Error:' + error);
-           return throwError(error);
-         },
-         () => console.log('HTTP request completed.')
-       );
-      }
-    })  
-  
-   }*/
-
-
-   /*public verDetalle = async (key:number) => {
-      
-    this._subcategoria
-    .getSubcategorias(key)
-    .pipe(
-     catchError((err) => {
-       Swal.close();
-       Swal.fire(
-         "Ha ocurrido un error inesperado al abrir esta bodega"
-       );
-       return throwError(err);
-     })
-   )
-   .subscribe(
-     async (resp: any) => {
-      Swal.close();
-      
-      
-      
-      this.cargarBodegas();
-       return true;
-     },
-     (error:any) => {
-       console.error('Error:' + error);
-       return throwError(error);
-     },
-     () => console.log('HTTP request completed.')
-   );
-   }*/
-
-   submitCategoriaForm():void
-   {
-    for (const i in this.categoriaForm.controls) {
-      if (this.categoriaForm.controls.hasOwnProperty(i)) {
-        this.categoriaForm.controls[i].markAsDirty();
-        this.categoriaForm.controls[i].updateValueAndValidity();
-      }
-    }
-   }
-
-   //Metodo que permite mostrar el modal para poder crear una categoria
-   showModal(): void {
-    this.isModalCategoryVisible = true;
-
-  }
-
-  //Metodo que permite manejar cuando se da OK al boton del modal
-  handleOk(): void {
-    this.isModalCategoryOkLoading = true;
-    const formData = new FormData();
-    formData.append('nombre',this.categoriaForm.value.categoriaNombre);
-
-
-      this._categoria
-      .crearCategoria(formData)
-      .pipe(
-       catchError((err) => {
-         Swal.close();
-         Swal.fire(
-           "Ha ocurrido un error inesperado al crear esa Categoría"
-         );
-         return throwError(err);
-       })
-     )
-     .subscribe(
-       async (resp: any) => {
-        this.isModalCategoryVisible = false;
-        this.isModalCategoryOkLoading = false;
-
-        this.categoriaForm.patchValue({
-          categoriaNombre: "",
-        });
-        
-        this.categoriaForm.reset();
-        for (const key in this.categoriaForm.controls) {
-          if (this.categoriaForm.controls.hasOwnProperty(key)) {
-            this.categoriaForm.controls[key].markAsPristine();
-            this.categoriaForm.controls[key].updateValueAndValidity();
-          }
-        }
-        Swal.close();
-        
-        Swal.fire({
-          title:'¡Categoría creada exitosamente!'})
-          .then((result) => {
-          if (result.dismiss === Swal.DismissReason.backdrop) {
-           this.cargarItemUnassigned();
-          }
-
-          if (result.isConfirmed) {
-            this.cargarItemUnassigned();
-          }
-        });
-        
-        
-         return true;
-       },
-       (error:any) => {
-         console.error('Error:' + error);
-         return throwError(error);
-       },
-       () => console.log('HTTP request completed.')
-     );
-    
-
-    
-    
-
-
-    
-    
-  }
-
-  //Metodo que permite manejar cuando el modal de la subcategoria se cierra 
-  handleCancel(): void {
-    this.isModalCategoryVisible = false;
-    this.categoriaForm.patchValue({
-      categoriaNombre: "",
-    });
-
-    this.categoriaForm.reset();
-    for (const key in this.categoriaForm.controls) {
-      if (this.categoriaForm.controls.hasOwnProperty(key)) {
-        this.categoriaForm.controls[key].markAsPristine();
-        this.categoriaForm.controls[key].updateValueAndValidity();
-      }
-    }
-  
-  }
-
-  asignarse(key:number): void 
-  {
-    const formData = new FormData();
-    let admin_id = ''
-    admin_id = JSON.parse(localStorage.getItem('user')|| '{}').user_id; 
-    formData.append('item', key as any as string);
-    formData.append('admin',  admin_id);
-
-
-
-    
-      this._itemsService
-      .asignaradminItem(formData)
-      .pipe(
-       catchError((err) => {
-         Swal.close();
-         Swal.fire(
-           "Ha ocurrido un error inesperado al asignarte este item"
-         );
-         return throwError(err);
-       })
-     )
-     .subscribe(
-       async (resp: any) => {
-       
-       
-
-        Swal.close();
-        
-        Swal.fire({
-          title:'¡Item asignado exitosamente!'})
-          .then((result) => {
-          if (result.dismiss === Swal.DismissReason.backdrop) {
-            this.cargarItemUnassigned();
-          }
-
-          if (result.isConfirmed) {
-            this.cargarItemUnassigned();
-          }
-        });
-        
-        
-         return true;
-       },
-       (error:any) => {
-         console.error('Error:' + error);
-         return throwError(error);
-       },
-       () => console.log('HTTP request completed.')
-     );
-  }
-
+ 
 }
