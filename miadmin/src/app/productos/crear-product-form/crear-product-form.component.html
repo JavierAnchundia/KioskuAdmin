@@ -178,6 +178,8 @@
                 Subir imágenes
               </button>
             </nz-upload>
+            <p *ngIf="fileList.length === 0" class='imagenWarning' >¡Por favor suba al menos una imagen!</p>
+
              </div>
          </nz-form-item>
 
@@ -195,7 +197,7 @@
 <div nz-row class="guardarButton">
   <div nz-typography nz-col nzSpan="24"></div>
 
-  <button #Guardar (click)="crearProducto()" [disabled]="!productoForm.valid" nz-col nzSpan="2" nzOffset="22" nz-button nzType="primary"> Guardar </button>
+  <button #Guardar (click)="crearProducto()" [disabled]="!productoForm.valid || fileList.length === 0" nz-col nzSpan="2" nzOffset="22" nz-button nzType="primary"> Guardar </button>
 
 </div>
 
