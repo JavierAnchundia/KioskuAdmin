@@ -84,10 +84,10 @@ export class EditarComponent implements OnInit {
       descripcion: ["", [Validators.maxLength(200), Validators.required]],
       categoria: ["", [Validators.maxLength(25), Validators.required]],
       subcategoria: ["", [Validators.maxLength(30), Validators.required]],
-      peso: ["", [Validators.maxLength(6), Validators.required, Validators.pattern("^\d{0,5}(\d\.\d?|\.\d)?\d?$")]],
+      peso: ["", [ Validators.required, Validators.pattern("^[0-9]{1,6}([.][0-9][0-9]?)?$")]],
       dimensiones: ["", [Validators.maxLength(200), Validators.required]],
       material: ["", [Validators.maxLength(100), Validators.required]],
-      precio: ["", [Validators.maxLength(6), Validators.required, Validators.pattern("^[0-9]+([,.][0-9]+)?$")]],
+      precio: ["", [ Validators.required, Validators.pattern("^[0-9]{1,6}([.][0-9][0-9]?)?$")]],
       bodega: ["", [Validators.maxLength(100), Validators.required]],
 
       remember: [true]

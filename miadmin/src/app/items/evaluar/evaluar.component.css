@@ -1,102 +1,81 @@
-.atributos
-{
-
-   font-weight: 700; 
+.atributos {
+  font-weight: 700;
 }
 
-.labelNombre{
-    font-weight: 700;
-  }
-  
-  .labelNombreImagenes{
-    font-weight: 700;
-    margin-top: 50px;
-  }
-  
-
-.nombreCategoria{
-    margin-bottom: 20px;
+.labelNombre {
+  font-weight: 700;
 }
 
-.breadcrumbSpace
-  {
-    margin-bottom: 25px;
-  }
+.labelNombreImagenes {
+  font-weight: 700;
+  margin-top: 50px;
+}
+
+.nombreCategoria {
+  margin-bottom: 20px;
+}
+
+.breadcrumbSpace {
+  margin-bottom: 25px;
+}
 
 .container {
-    justify-content: space-between;
-    flex-direction: column;
-    height: 100vh;
-    display: flex;
-  }
-  
-.container .btn-holder {
-    justify-content: flex-end;
-    display: flex;
-  }
-
-.guardarButton
-{
-  margin-top: 100px;
-
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100vh;
+  display: flex;
 }
 
-.guardarButtonAlter
-{
+.container .btn-holder {
+  justify-content: flex-end;
+  display: flex;
+}
+
+.guardarButton {
+  margin-top: 100px;
+}
+
+.guardarButtonAlter {
   margin-top: 80px;
 }
 
-.info
-{
-    color:black;
+.info {
+  color: black;
 }
 
+.imagenesItem {
+  margin-top: 30px;
+  width: 550px;
+}
 
+.imagenPaquete {
+  width: 100%;
+  height: 400px;
+  object-fit: fill;
+}
 
- 
+.imagenDiv {
+  width: 550px;
+  height: 400px;
+}
 
-  .imagenesItem
-  {
-      margin-top: 30px;
-      width: 550px;
+.espacio {
+  height: 100px;
+  width: 300px;
+  background: #ffffff;
+}
 
-  }
+[nz-carousel-content] {
+  background: #364d79;
+  color: #fff;
+  overflow: hidden;
+  width: 550px;
+}
 
-  .imagenPaquete {
-
-    width: 100%;
-    height: 400px;
-    object-fit: fill;
-
-  }
-
-  
-  .imagenDiv {
-
-    width: 550px;
-    height: 400px;
-
-  }
-
-  .espacio
-  {
-    height: 100px;
-    width: 300px;
-    background: #ffffff;
-
-  }
-
-  [nz-carousel-content] {
-    background: #364d79;
-    color: #fff;
-    overflow: hidden;
-    width: 550px;
-  }
-
-  nz-carousel {
-    height: 400px;
-    width: 550px;
-  }
+nz-carousel {
+  height: 400px;
+  width: 550px;
+}
 
   .descartarButton{
     background-color: #f7db7d;
