@@ -1,0 +1,185 @@
+<nz-breadcrumb class = "breadcrumbSpace">
+    <nz-breadcrumb-item>
+      <a routerLink="/inicio/dashboard">
+        <i nz-icon nzType="home"></i>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a routerLink="/inicio/productos/consultar">
+        <i nz-icon nzType="skin" nzTheme="outline"></i>
+        <span>Productos</span>
+      </a>
+    </nz-breadcrumb-item>
+    
+  </nz-breadcrumb>
+  
+  <div nz-row>
+    <h2 nz-col nzSpan="8" id="titulo"> Productos</h2>
+  </div>
+  
+  <nz-table #editRowTable  nzBordered [nzData]="listOfDisplayData" nzTableLayout="fixed" [nzScroll]="{ x: '1500px' }">
+      <thead>
+        <tr class="header">
+  
+          <th nzAlign= 'center' class="header" nzWidth="15%" > Imagen</th>
+  
+          <th
+          [nzSortOrder]="listOfColumns[0].sortOrder"
+          [nzSortFn]="listOfColumns[0].sortFn"
+          [nzSortDirections]="listOfColumns[0].sortDirections"
+          [nzFilterMultiple]="listOfColumns[0].filterMultiple"
+          [nzFilterFn]="listOfColumns[0].filterFn"
+          nzCustomFilter 
+          class="header"
+          nzWidth="15%"
+
+        >
+          {{ listOfColumns[0].name }}
+          <nz-filter-trigger [(nzVisible)]="visibleTitulo" [nzActive]="searchValueTitulo.length > 0" [nzDropdownMenu]="menuTitulo">
+            <i nz-icon nzType="search"></i>
+          </nz-filter-trigger>
+        </th>
+  
+          <th
+            [nzSortOrder]="listOfColumns[1].sortOrder"
+            [nzSortFn]="listOfColumns[1].sortFn"
+            [nzSortDirections]="listOfColumns[1].sortDirections"
+            [nzFilterMultiple]="listOfColumns[1].filterMultiple"
+            [nzFilterFn]="listOfColumns[1].filterFn"
+            nzCustomFilter 
+            class="header descriptionTh"
+            nzWidth="35%"
+
+          >
+            {{ listOfColumns[1].name }}
+            <nz-filter-trigger [(nzVisible)]="visibleDescripcion" [nzActive]="searchValueDescripcion.length > 0" [nzDropdownMenu]="menuDescripcion">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+  
+          <th
+            [nzSortOrder]="listOfColumns[2].sortOrder"
+            [nzSortFn]="listOfColumns[2].sortFn"
+            [nzSortDirections]="listOfColumns[2].sortDirections"
+            [nzFilterMultiple]="listOfColumns[2].filterMultiple"
+            [nzFilterFn]="listOfColumns[2].filterFn"
+            nzCustomFilter 
+            class="header"
+            nzWidth="15%"
+
+            
+          >
+            {{ listOfColumns[2].name }}
+            <nz-filter-trigger [(nzVisible)]="visibleCantidad" [nzActive]="searchValueCantidad.length > 0" [nzDropdownMenu]="menuCantidad">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+
+           <th
+            [nzSortOrder]="listOfColumns[3].sortOrder"
+            [nzSortFn]="listOfColumns[3].sortFn"
+            [nzSortDirections]="listOfColumns[3].sortDirections"
+            [nzFilterMultiple]="listOfColumns[3].filterMultiple"
+            [nzFilterFn]="listOfColumns[3].filterFn"
+            nzCustomFilter 
+            class="header"
+            nzWidth="15%"
+
+            
+          >
+            {{ listOfColumns[3].name }}
+            <nz-filter-trigger [(nzVisible)]="visiblePrecio" [nzActive]="searchValuePrecio.length > 0" [nzDropdownMenu]="menuPrecio">
+              <i nz-icon nzType="search"></i>
+            </nz-filter-trigger>
+          </th>
+  
+          <th class="header"  nzAlign= 'center'  nzWidth="15%"> Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of editRowTable.data">
+  
+          <td nzAlign= 'center' *ngIf="data.thumbnail != null" >
+            <img
+              nz-image
+              class="imagenPaquete"
+              nzSrc="{{ url_backend }}{{ data.thumbnail }}"
+              alt="Sin imagen adjunta"
+              title=""
+              
+            />
+          </td>
+  
+          <td nzAlign= 'center' *ngIf="data.thumbnail == null">
+          <p > No hay imagen</p>
+          </td>
+  
+          <td>{{ data.titulo }}</td>
+          <td>{{ data.descripcion }}</td>
+          <td nzAlign= 'center'>{{ data.cantidad }}</td>
+          <td nzAlign= 'center'>{{ data.precio }}</td>
+
+          <!--<td class="iconoActionEditar" nzAlign= 'center'>
+              <a [routerLink]="['/inicio/bodegas/editar']" [queryParams]= "{id: data.id}" >
+                  <i nz-icon nzType="form" nzTheme="outline"></i>
+              </a>
+          </td>-->
+          <td class="iconoActionEliminar"  nzAlign= 'center'>
+         
+
+            <a nz-button nzType="link"  [routerLink]="['/inicio/productos/editar']" [queryParams]= "{id: data.id}">
+              <i nz-icon nzType="edit" nzTheme="fill"></i>
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a nz-button nzType="link" nzDanger (click)="eliminarBodega(data.id, data.is_active)">
+              <i *ngIf='data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para eliminado lógico" nz-icon nzType="stop" nzTheme="fill"></i>
+              <i *ngIf='!data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para activado lógico"nz-icon nzType="check-circle" nzTheme="fill"></i>
+            </a>
+
+          </td>
+
+          
+        </tr>
+      </tbody>
+  </nz-table>
+  <nz-dropdown-menu #menuTitulo="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Buscar título" [(ngModel)]="searchValueTitulo" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchTitulo()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="resetTitulo()">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  
+  <nz-dropdown-menu #menuDescripcion="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Buscar descripción" [(ngModel)]="searchValueDescripcion" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchDescripcion()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="resetDescripcion()">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  
+  <nz-dropdown-menu #menuCantidad="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Buscar cantidad" [(ngModel)]="searchValueCantidad" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchCantidad()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="resetCantidad()">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+
+  <nz-dropdown-menu #menuPrecio="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <input type="text" nz-input placeholder="Buscar precio" [(ngModel)]="searchValuePrecio" />
+        <button nz-button nzSize="small" nzType="primary" (click)="searchPrecio()" class="search-button">Buscar</button>
+        <button nz-button nzSize="small" (click)="resetPrecio()">Reiniciar</button>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+  
+  

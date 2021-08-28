@@ -22,14 +22,20 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzAutocompleteModule} from 'ng-zorro-antd/auto-complete';
 import { NzUploadModule} from 'ng-zorro-antd/upload';
+import { NzImageModule} from 'ng-zorro-antd/image';
+import { NzDividerModule} from 'ng-zorro-antd/divider';
 
 import { CrearProductFormComponent } from './crear-product-form/crear-product-form.component';
+import { ConsultarComponent } from './consultar/consultar.component';
+import { EditarComponent } from './editar/editar.component';
 
 
 @NgModule({
   declarations: [
     CrearComponent,
-    CrearProductFormComponent
+    CrearProductFormComponent,
+    ConsultarComponent,
+    EditarComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +55,9 @@ import { CrearProductFormComponent } from './crear-product-form/crear-product-fo
     NzSelectModule,
     NzCarouselModule,
     NzAutocompleteModule,
-    NzUploadModule
+    NzUploadModule,
+    NzImageModule,
+    NzDividerModule
   ]
 })
 export class ProductosModule { }

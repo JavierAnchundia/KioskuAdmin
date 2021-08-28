@@ -1,6 +1,6 @@
 <nz-breadcrumb class = "breadcrumbSpace">
     <nz-breadcrumb-item>
-      <a>
+      <a routerLink="/inicio/dashboard">
         <i nz-icon nzType="home"></i>
       </a>
     </nz-breadcrumb-item>
@@ -17,10 +17,12 @@
     <h2 nz-col nzSpan="8" id="titulo"> Mis Items</h2>
   </div>
   
-  <nz-table #editRowTable  nzBordered [nzData]="listOfDisplayData" nzTableLayout="fixed">
+  <nz-table #editRowTable  nzBordered [nzData]="listOfDisplayData" nzTableLayout="fixed"  [nzScroll]="{ x: '1500px' }">
       <thead>
         <tr class="header">
          
+          <th nzAlign= 'center'  nzWidth="15%" class="header" > Imagen</th>
+
           <th
           [nzSortOrder]="listOfColumns[0].sortOrder"
           [nzSortFn]="listOfColumns[0].sortFn"
@@ -29,6 +31,8 @@
           [nzFilterFn]="listOfColumns[0].filterFn"
           nzCustomFilter 
           class="header"
+          nzWidth="15%"
+
         >
           {{ listOfColumns[0].name }}
           <nz-filter-trigger [(nzVisible)]="visibleTitulo" [nzActive]="searchValueTitulo.length > 0" [nzDropdownMenu]="menuTitulo">
@@ -43,7 +47,9 @@
             [nzFilterMultiple]="listOfColumns[1].filterMultiple"
             [nzFilterFn]="listOfColumns[1].filterFn"
             nzCustomFilter 
-            class="header descriptionTh"
+            class="header "
+            nzWidth="35%"
+
           >
             {{ listOfColumns[1].name }}
             <nz-filter-trigger [(nzVisible)]="visibleDescripcion" [nzActive]="searchValueDescripcion.length > 0" [nzDropdownMenu]="menuDescripcion">
@@ -59,6 +65,8 @@
             [nzFilterFn]="listOfColumns[2].filterFn"
             nzCustomFilter 
             class="header"
+            nzWidth="15%"
+
           >
             {{ listOfColumns[2].name }}
             <nz-filter-trigger [(nzVisible)]="visibleEntrega" [nzActive]="searchValueEntrega.length > 0" [nzDropdownMenu]="menuEntrega">
@@ -73,7 +81,9 @@
           [nzFilterMultiple]="listOfColumns[3].filterMultiple"
           [nzFilterFn]="listOfColumns[3].filterFn"
           nzCustomFilter 
-          class="header estadoTh"
+          class="header"
+          nzWidth="15%"
+
         >
           {{ listOfColumns[3].name }}
           <nz-filter-trigger [(nzVisible)]="visibleEstado" [nzActive]="searchValueEstado.length > 0" [nzDropdownMenu]="menuEstado">
@@ -89,6 +99,8 @@
           [nzFilterFn]="listOfColumns[4].filterFn"
           nzCustomFilter 
           class="header"
+          nzWidth="15%"
+
         >
           {{ listOfColumns[4].name }}
           <nz-filter-trigger [(nzVisible)]="visibleFechaActualizacion" [nzActive]="searchValueFechaActualizacion.length > 0" [nzDropdownMenu]="menuFechaActualizacion">
@@ -96,11 +108,27 @@
           </nz-filter-trigger>
           </th>
 
-          <th class="header"  nzAlign= 'center'> Evaluar</th>
+          <th class="header" nzWidth="15%" nzAlign= 'center'> Evaluar</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of editRowTable.data">
+          
+        <td nzAlign= 'center' *ngIf="data.thumbnail != null" >
+          <img
+            nz-image
+            class="imagenPaquete"
+            nzSrc="{{ url_backend }}{{ data.thumbnail }}"
+            alt="Sin imagen adjunta"
+            title=""
+            
+          />
+        </td>
+
+        <td nzAlign= 'center' *ngIf="data.thumbnail == null">
+        <p > No hay imagen</p>
+        </td>
+        
           <td>{{ data.titulo }}</td>
           <td>{{ data.descripcion }}</td>
           <td >{{ data.entrega }}</td>

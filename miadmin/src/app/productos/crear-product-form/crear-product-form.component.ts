@@ -149,6 +149,8 @@ export class CrearProductFormComponent implements OnInit {
     formData.append('dimensiones',this.productoForm.value.dimensiones);
     formData.append('material',this.productoForm.value.material);
     formData.append('estado',this.itemInicial.estado as any as string);
+    formData.append('cantidad',this.itemInicial.cantidad as any as string);
+    formData.append('bodega',this.productoForm.value.bodega);
 
     //formData.append('disponible','True');
     formData.append('titulo',this.productoForm.value.nombre);
@@ -174,8 +176,48 @@ export class CrearProductFormComponent implements OnInit {
         
         if(producto)
         {
-          this.crearBodegaProducto(producto.id);
-        }
+
+          this.addImageItem(producto.id)
+          .then(img => {
+  
+            Swal.fire({
+              title:'El producto se ha creado con éxito.'})
+              .then((result) => {
+              if (result.dismiss === Swal.DismissReason.backdrop) {
+                this._router.navigate(['/inicio/productos/crear']);
+   
+              }
+   
+              if (result.isConfirmed) {
+                this._router.navigate(['/inicio/productos/crear']);
+   
+              }
+            });
+           
+            this.productoForm.patchValue({
+              nombre: '',
+              descripcion: '',
+              categoria: '',
+              subcategoria: '',
+              peso: '',
+              dimensiones: '',
+              material: '',
+              precio: '',
+              bodega: '',
+            });
+  
+            for (let control in this.productoForm.controls) {
+              this.productoForm.controls[control].setErrors(null);
+            }
+            this.fileList = [];
+  
+            return true;
+           
+          }
+          )
+          .catch(error => {
+            console.log(error);
+          })        }
          
                   
         },
@@ -279,7 +321,7 @@ export class CrearProductFormComponent implements OnInit {
     return this._imagenProducto.createImagenProducto({imagesList})
   }
 
-  public crearBodegaProducto(idProducto: string)
+  /*public crearBodegaProducto(idProducto: string)
   {
    const formData = new FormData();
    //formData.append('nombre',this.bodegaForm.value.nombre);
@@ -351,7 +393,7 @@ export class CrearProductFormComponent implements OnInit {
      );
      
 
-  }
+  }*/
 
   /*addEstado(): Promise<any>{
     const estado = new FormData();

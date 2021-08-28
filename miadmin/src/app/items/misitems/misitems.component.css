@@ -10,7 +10,7 @@
 
 .header
 {
-    background-color:#d6e4ff;
+   /*background-color:#d6e4ff;*/
 
 }
 
@@ -53,4 +53,11 @@
 
   .evaluado{
     margin-top: 15px;
+  }
+
+  .imagenPaquete {
+    width: 140px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 80px;
   }

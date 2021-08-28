@@ -1,0 +1,40 @@
+.labelNombre{
+    font-weight: 700;
+  }
+  
+.nombreProducto{
+    margin-bottom: 20px;
+}
+
+.breadcrumbSpace
+  {
+    margin-bottom: 25px;
+  }
+
+.container {
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
+    display: flex;
+  }
+  
+.container .btn-holder {
+    justify-content: flex-end;
+    display: flex;
+  }
+
+.guardarButton
+{
+  margin-top: 180px;
+
+}
+
+.imagenWarning
+{
+  color: red;
+}
+
+
+
+
+

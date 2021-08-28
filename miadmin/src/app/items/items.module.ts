@@ -26,6 +26,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzAutocompleteModule} from 'ng-zorro-antd/auto-complete';
 import { NzInputNumberModule} from 'ng-zorro-antd/input-number';
+import { NzImageModule} from 'ng-zorro-antd/image';
 
 
 
@@ -52,7 +53,8 @@ import { NzInputNumberModule} from 'ng-zorro-antd/input-number';
     NzSelectModule,
     NzCarouselModule,
     NzAutocompleteModule,
-    NzInputNumberModule
+    NzInputNumberModule,
+    NzImageModule
 
   ]
 })

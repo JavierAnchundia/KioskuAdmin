@@ -1,6 +1,6 @@
 <nz-breadcrumb class = "breadcrumbSpace">
     <nz-breadcrumb-item>
-      <a>
+      <a routerLink="/inicio/dashboard">
         <i nz-icon nzType="home"></i>
       </a>
     </nz-breadcrumb-item>
@@ -79,13 +79,13 @@
 
           <td class="iconoActionEditar" nzAlign= 'center'>
               <a [routerLink]="['/inicio/bodegas/editar']" [queryParams]= "{id: data.id}" >
-                  <i nz-icon nzType="form" nzTheme="outline"></i>
+                  <i nz-button nzType="link" nz-icon nzType="edit" nzTheme="fill"></i>
               </a>
           </td>
           <td class="iconoActionEliminar"  nzAlign= 'center'>
-              <a  (click)="eliminarBodega(data.id, data.is_active)">
-                <i *ngIf='data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para eliminado lógico" nz-icon nzType="stop" nzTheme="outline"></i>
-                <i *ngIf='!data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para activado lógico"nz-icon nzType="check-circle" nzTheme="outline"></i>
+              <a nz-button nzType="link" nzDanger (click)="eliminarBodega(data.id, data.is_active)">
+                <i  *ngIf='data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para eliminado lógico" nz-icon nzType="stop" nzTheme="fill"></i>
+                <i  *ngIf='!data.is_active' data-toggle="tooltip" data-placement="bottom" title="De click para activado lógico"nz-icon nzType="check-circle" nzTheme="fill"></i>
               </a>
           </td>
         </tr>

@@ -1,6 +1,6 @@
 <nz-breadcrumb class = "breadcrumbSpace">
   <nz-breadcrumb-item>
-    <a>
+    <a routerLink="/inicio/dashboard">
       <i nz-icon nzType="home"></i>
     </a>
   </nz-breadcrumb-item>
@@ -45,12 +45,12 @@
         <td>{{ data.nombre }}</td>
         <td class="iconoActionEditar" nzAlign= 'center'>
             <a [routerLink]="['/inicio/subcategorias']" [queryParams]= "{id: data.id}">
-                <i nz-icon nzType="form" nzTheme="outline"></i>
+                <i nz-icon nzType="edit" nzTheme="fill"></i>
             </a>
         </td>
         <td class="iconoActionEliminar"  nzAlign= 'center'>
-            <a  (click)="eliminarCategoria(data.id)">
-                <i  nz-icon nzType="delete" nzTheme="outline"></i>
+            <a nz-button nzType="link" (click)="eliminarCategoria(data.id)" nzDanger>
+                <i  nz-icon nzType="delete" nzTheme="fill"></i>
             </a>
         </td>
       </tr>

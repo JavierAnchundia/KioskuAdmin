@@ -30,6 +30,7 @@ const URL_SERVICIOS = {
 
   adminItem: URL_ROOT + '/adminItem/',
   producto: URL_ROOT + '/producto/',
+  producto_categoria_subcategoria: URL_ROOT + '/producto-categoria-subcategoria/',
   item_imagen: URL_ROOT + '/img-item/',
   imagen_producto: URL_ROOT + '/img-producto/',
   estado: URL_ROOT + '/estado/',

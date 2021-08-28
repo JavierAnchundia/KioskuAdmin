@@ -14,6 +14,7 @@ import { BodegaService } from '../../services/bodega.service';
 
 import { SubcategoriaService } from '../../services/subcategoria.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import URL_SERVICIOS from 'src/app/config/config';
 
 @Component({
   selector: 'app-misitems',
@@ -28,8 +29,8 @@ export class MisitemsComponent implements OnInit {
   searchValueEstado = '';
   searchValueFechaActualizacion = '';
 
-  porEvaluar="por evaluar";
-  
+ 
+
   visibleTitulo = false;
   visibleDescripcion = false;
   visibleEntrega = false;
@@ -37,6 +38,9 @@ export class MisitemsComponent implements OnInit {
   visibleFechaActualizacion = false;
 
   multiplefilter = false;
+
+  porEvaluar="por evaluar";
+  url_backend: string = URL_SERVICIOS.url_static;
 
   categoriaForm:FormGroup;
   isModalCategoryVisible = false;

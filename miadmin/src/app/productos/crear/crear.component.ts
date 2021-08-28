@@ -144,11 +144,11 @@ export class CrearComponent implements OnInit {
     this.visibleCantidad = false;
     if(this.multiplefilter)
     {
-      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.entrega.toLowerCase().indexOf(this.searchValueCantidad.toLowerCase()) !== -1);
+      this.listOfDisplayData = this.listOfDisplayData.filter((item: Item) => item.cantidad.toString().toLowerCase().indexOf(this.searchValueCantidad.toLowerCase()) !== -1);
     }
     else
     {
-      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.entrega.toLowerCase().indexOf(this.searchValueCantidad.toLowerCase()) !== -1);
+      this.listOfDisplayData = this.listOfData.filter((item: Item) => item.cantidad.toString().toLowerCase().indexOf(this.searchValueCantidad.toLowerCase()) !== -1);
     }
     this.multiplefilter = true;
   }

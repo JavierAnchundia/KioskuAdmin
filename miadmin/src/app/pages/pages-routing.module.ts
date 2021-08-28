@@ -46,9 +46,12 @@ const routes: Routes = [
   loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule)
   },
 
-  { path: '',
+  { path: 'dashboard',
     component: DashboardComponent,
-  }
+  },
+
+  {path:'', redirectTo: 'dashboard', pathMatch:'full'},
+
 
 ];
 

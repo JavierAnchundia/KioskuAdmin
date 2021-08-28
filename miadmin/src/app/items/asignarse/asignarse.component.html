@@ -1,6 +1,6 @@
 <nz-breadcrumb class = "breadcrumbSpace">
   <nz-breadcrumb-item>
-    <a>
+    <a routerLink="/inicio/dashboard">
       <i nz-icon nzType="home"></i>
     </a>
   </nz-breadcrumb-item>
@@ -77,9 +77,9 @@
 
         <td nzAlign= 'center' *ngIf="data.thumbnail != null" >
           <img
-          
+            nz-image
             class="imagenPaquete"
-            src="{{ url_backend }}{{ data.thumbnail }}"
+            nzSrc="{{ url_backend }}{{ data.thumbnail }}"
             alt="Sin imagen adjunta"
             title=""
             
@@ -101,7 +101,7 @@
         </td>-->
         <td class="iconoActionEliminar"  nzAlign= 'center'>
             <a (click)="asignarse(data.id)" >
-              <i nz-icon nzType="plus-circle" nzTheme="outline"></i>            
+              <i nz-icon nzType="plus-circle" nzTheme="fill"></i>            
             </a>
         </td>
       </tr>
