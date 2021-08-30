@@ -1,0 +1,18 @@
+ul li
+{
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.pending i{
+  color: blue;
+}
+
+.text-center{
+  text-align: center;
+}
+
+ul{
+  margin: 0;
+  padding: 0;
+}

@@ -8,6 +8,7 @@ import {ItemsComponent} from '../items/items.component';
 import {ProductosComponent} from '../productos/productos.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { MembresiaComponent } from '../membresia/membresia.component';
+import { OrdenesComponent } from '../ordenes/ordenes/ordenes.component';
 
 const routes: Routes = [
   {
@@ -45,7 +46,10 @@ const routes: Routes = [
   component: MembresiaComponent,
   loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule)
   },
-
+  { path: 'ordenes',
+  component: OrdenesComponent,
+  loadChildren: () => import('../ordenes/ordenes.module').then(m => m.OrdenesModule)
+  },
   { path: 'dashboard',
     component: DashboardComponent,
   },

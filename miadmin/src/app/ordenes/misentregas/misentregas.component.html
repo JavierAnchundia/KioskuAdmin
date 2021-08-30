@@ -1,0 +1,86 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <a routerLink="/inicio/dashboard">
+      <i nz-icon nzType="home"></i>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+      <span>Mis entregas</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div nz-row>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Mis entregas</h2>
+</div>
+
+<nz-table #filterTable [nzData]="ordersList" nzTableLayout="fixed" class="table manage-candidates-top mb-0">
+  <thead>
+    <tr>
+      <th class="text-center" *ngFor="let column of listOfColumns.slice(0, 4)" [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections">
+        {{ column.name }}
+      </th>
+      <th class="text-center" [nzSortOrder]="listOfColumns[4].sortOrder"
+      [nzSortFn]="listOfColumns[4].sortFn"
+      [nzSortDirections]="listOfColumns[4].sortDirections" [nzFilters]="listOfColumns[4].listOfFilter!"
+      [nzFilterFn]="listOfColumns[4].filterFn!" [nzFilterMultiple]="false" >
+      {{ listOfColumns[4].name }}
+    </th>
+
+      <th class="action text-center">Estado</th>
+      <th class="action text-center">Ult. actualización de estado</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="candidates-list" *ngFor="let orden of filterTable.data">
+      <td class="title">
+        <div>
+          <div>
+            <div>
+              <h5 class="mb-0"><a>Orden Nº {{ orden?.id }} </a></h5>
+            </div>
+            <div>
+              <ul>
+                <li><i nz-icon nzType="dollar" nzTheme="outline"></i> {{ orden?.total }} </li>
+                <li><i nz-icon nzType="shopping-cart" nzTheme="outline"></i> {{ orden?.totalCompra }}
+                  productos
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div>
+          <ul>
+            <li><i nz-icon nzType="aim" nzTheme="outline"></i> {{ orden?.direccion }} </li>
+            <li><i nz-icon nzType="global" nzTheme="outline"></i> {{ orden?.ciudad }} </li>
+          </ul>
+        </div>
+      </td>
+      <td>{{ orden?.comprador}} </td>
+      <td class="text-center">
+        {{ orden?.dateCreated | date }}
+      </td>
+      <td class="candidate-list-favourite-time text-center">
+        <a class="pending" *ngIf="orden?.estadoCompra == 'Por entregar'">
+          <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
+        </a>
+        <a class="pending" *ngIf="orden?.estadoCompra == 'Entregado'">
+          <i nz-icon nzType="check-circle" nzTheme="fill"></i>
+        </a> 
+        <span class="candidate-list-time order-1"> {{ orden?.estadoCompra }}</span>
+      </td>
+      <td>
+        <ul class="text-center" *ngIf="orden?.estadoCompra == 'Por entregar'">
+          <a (click)="updateOrderDeliveryStatus(orden?.estado)"><i class="sent" nz-icon nzType="send" nzTheme="outline"></i></a>
+        </ul>
+      </td>
+      <td>{{ orden?.updated | date:'d/M/yy HH:mm a':'+0:00' }} </td>
+    </tr>
+  </tbody>
+</nz-table>

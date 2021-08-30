@@ -155,6 +155,10 @@ export class UsuarioService {
     return localStorage.getItem('status');
   }
 
+  getUserRole(): any{
+    return localStorage.getItem('type');
+  }
+
   getCurrentUserId(): string{
     return JSON.parse(localStorage.getItem('user')|| '{}').user_id;
   }

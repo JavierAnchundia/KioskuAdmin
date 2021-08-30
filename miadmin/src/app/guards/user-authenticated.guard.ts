@@ -13,7 +13,7 @@ export class UserAuthenticatedGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      const hasAccess = (localStorage.getItem('type') === 'admin');
+      const hasAccess = (localStorage.getItem('type') !== 'final');
       const isValidToken = localStorage.getItem('token') != null && localStorage.getItem('token') !== '';
 
       if (isValidToken && hasAccess){
