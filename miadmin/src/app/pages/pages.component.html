@@ -36,7 +36,7 @@
           </a>
         </li>
 
-       
+
 
         <li nz-submenu  nzTitle="Productos" nzIcon="skin">
           <ul>
@@ -46,15 +46,22 @@
             <li nz-menu-item nzMatchRouter>
               <a class=''routerLink="/inicio/productos/consultar"> Ver Productos </a>
             </li>
-           
+
           </ul>
         </li>
 
-        <li nz-menu-item nzMatchRouter nzIcon="form" >
-          <a routerLink="/welcome">
-            <i nz-icon nzType="shopping" nzTheme="outline"></i>
-            <span *ngIf = "!isCollapsed">Compras</span>
-          </a>
+        <li nz-submenu  nzTitle="Compras" nzIcon="shopping">
+
+          <ul>
+            <li nz-menu-item routerLink="/inicio/ordenes/">
+              <a>
+                Órdenes sin asignar
+              </a>
+            </li>
+            <li nz-menu-item routerLink="/inicio/ordenes/entregas">
+              <a>Mis entregas</a>
+            </li>
+          </ul>
         </li>
 
         <li nz-submenu  nzTitle="Configuraciones" nzIcon="setting">
