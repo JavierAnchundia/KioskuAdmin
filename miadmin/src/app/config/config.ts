@@ -33,6 +33,8 @@ const URL_SERVICIOS = {
   producto_categoria_subcategoria: URL_ROOT + '/producto-categoria-subcategoria/',
   item_imagen: URL_ROOT + '/img-item/',
   imagen_producto: URL_ROOT + '/img-producto/',
+  imagen_individual_producto: URL_ROOT + '/img-producto-individual/',
+  
   estado: URL_ROOT + '/estado/',
   estado_id: URL_ROOT + '/estado-id/',
   bodega_item: URL_ROOT + '/bodega-item/',

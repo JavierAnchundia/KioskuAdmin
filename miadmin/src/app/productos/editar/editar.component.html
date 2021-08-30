@@ -110,7 +110,8 @@
               <ng-template #pesoProductoErrorMsg let-control>
                 <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese un peso!</ng-container>
                 <ng-container *ngIf="control.hasError('maxlength')">¡El peso es demasiado largo!</ng-container>
-    
+                <ng-container *ngIf="control.hasError('pattern')">¡Debe ingresar un número, máximo 6 dígitos enteros y máximo 2 decimales!</ng-container>
+
                 
               </ng-template>
             </nz-form-control>
@@ -152,7 +153,7 @@
               <ng-template #precioProdutoErrorMsg let-control>
                 <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese los créditos!</ng-container>
                 <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiada largo!</ng-container>
-                <ng-container *ngIf="control.hasError('pattern')">¡Solo se pueden ingresar números!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern')">¡Debe ingresar un número, máximo 6 dígitos enteros y máximo 2 decimales!</ng-container>
 
                 
               </ng-template>
@@ -182,7 +183,8 @@
             <div class="form-group">
 
             <nz-upload nzListType="picture"
-            [nzMultiple]="true"  [(nzFileList)]="fileList">
+            [nzMultiple]="true"  [(nzFileList)]="fileList" 
+            [nzRemove]="handleRemove"	>
               <button class="btn-submit" type="button">
                 <i nz-icon nzType="upload"></i>
                 Subir imágenes

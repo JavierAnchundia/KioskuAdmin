@@ -7,6 +7,8 @@ import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import URL_SERVICIOS from 'src/app/config/config';
+import {Observable,of, from } from 'rxjs';
 
 import { CategoriaService } from '../../services/categoria.service';
 import { SubcategoriaService } from '../../services/subcategoria.service';
@@ -22,6 +24,8 @@ import { Item } from 'src/app/models/items';
 import { Producto } from 'src/app/models/producto';
 
 import {  Categoria } from 'src/app/models/categoria';
+import {  ProductoImagen } from 'src/app/models/productoImagen';
+
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 import { ItemsService } from 'src/app/services/items.service';
@@ -44,7 +48,7 @@ export class EditarComponent implements OnInit {
   mensajeSinSubcategoria: string = "Esa categoría no tiene subcategorías";
 
   conSubcategoria: boolean = true;
-  categoriaElegida:boolean = false;
+  categoriaElegida:boolean = true;
   //{id:0, nombre:"Por favor escoja primero una categoría"}
   listOfSubCategorias:SubCategoria []=[];
   listOfCategorias:Categoria[] = [];
@@ -52,6 +56,8 @@ export class EditarComponent implements OnInit {
   selected:number[] = [];
   idCiudad:number = 1;
   productoInicial:Producto = new Producto(0,0,0,0,0,0,0,"","","",true,"","",0,0,true,"","","");
+  listOfProductoImages: ProductoImagen[] = [];
+  url_backend: string = URL_SERVICIOS.url_static;
 
 
   //@ViewChild('myselect') myselect: ElementRef<any>;
@@ -84,10 +90,10 @@ export class EditarComponent implements OnInit {
       descripcion: ["", [Validators.maxLength(200), Validators.required]],
       categoria: ["", [Validators.maxLength(25), Validators.required]],
       subcategoria: ["", [Validators.maxLength(30), Validators.required]],
-      peso: ["", [ Validators.required, Validators.pattern("^[0-9]{1,6}([.][0-9][0-9]?)?$")]],
+      peso: ["", [ Validators.required, Validators.pattern("^[0-9]{1,6}([.|,][0-9][0-9]?)?$")]],
       dimensiones: ["", [Validators.maxLength(200), Validators.required]],
       material: ["", [Validators.maxLength(100), Validators.required]],
-      precio: ["", [ Validators.required, Validators.pattern("^[0-9]{1,6}([.][0-9][0-9]?)?$")]],
+      precio: ["", [ Validators.required, Validators.pattern("^[0-9]{1,6}([.|,][0-9][0-9]?)?$")]],
       bodega: ["", [Validators.maxLength(100), Validators.required]],
 
       remember: [true]
@@ -139,7 +145,7 @@ export class EditarComponent implements OnInit {
       this.productoInicial.titulo = resp.titulo ;
       this.productoInicial.thumbnail = resp.thumbnail ;
       this.productoInicial.cantidad = resp.cantidad ;
-      this.productoInicial.bodega = resp.bodega ;
+      this.productoInicial.bodega = resp.bodega.id ;
       this.productoInicial.is_active = resp.is_active ;
       this.productoInicial.subcategoria_name = resp.subcategoria.nombre ;
       this.productoInicial.categoria_name = resp.categoria.nombre ;
@@ -159,6 +165,7 @@ export class EditarComponent implements OnInit {
       })
 
       this.cargarSubCategorias( this.productoInicial.categoria);
+      this.cargarProductoImagenes(id);
     }
       )
       
@@ -178,7 +185,8 @@ export class EditarComponent implements OnInit {
     formData.append('dimensiones',this.productoForm.value.dimensiones);
     formData.append('material',this.productoForm.value.material);
     //formData.append('estado',this.itemInicial.estado as any as string);
-    //formData.append('cantidad',this.itemInicial.cantidad as any as string);
+    //formData.append('cantidad',this.itemInicial.cantidad as any as string)
+    console.log(this.productoForm.value.bodega);
     formData.append('bodega',this.productoForm.value.bodega);
 
     //formData.append('disponible','True');
@@ -358,35 +366,79 @@ export class EditarComponent implements OnInit {
   }
 
   onChangeCategory(value: any): void {
-  
+    
 
-    if (value[0] !== undefined){
+    if (value[0] !== undefined && value != "categoriaOriginalValue"){
       console.log(this.productoForm.value.subcategoria);
       this.categoriaElegida = true;
+    
       this.productoForm.get('subcategoria')!.reset();
       this.cargarSubCategorias(value[0]);
     }
   }
-
+  
   addImageItem(idProducto: string): Promise<any>{
     
     this.uploading = true;
     const imagesList:any[] = [];
     this.fileList.forEach((element: any) =>
     {
-      imagesList.push(
-        {
-          imagen: element.thumbUrl,
-          name: element.name,
-          producto: idProducto
-        }
-      )
+      if(isNaN(Number(element.uid)) || element.uid >= this.listOfProductoImages.length 
+      || this.listOfProductoImages[element.uid] == undefined || this.listOfProductoImages[element.uid].imagen == undefined
+      || this.listOfProductoImages[element.uid].imagen.split('/')[3] == undefined
+      || this.listOfProductoImages[element.uid].imagen.split('/')[3] != element.name  )
+      {
+          console.log("Im in")
+          imagesList.push(
+            {
+              imagen: element.thumbUrl,
+              name: element.name,
+              producto: idProducto
+            }
+          )
+      }
+      
 
     })
 
     console.log(imagesList);
     
     return this._imagenProducto.createImagenProducto({imagesList})
+  }
+
+
+  private async cargarProductoImagenes(id:number){
+    this._producto.getProductoImagenes(id)
+    .pipe(
+      catchError((err) => {
+        Swal.close();
+        Swal.fire(
+          "Ha ocurrido un error  al cargar las imágenes del producto"
+        );
+        return throwError(err);
+      })
+    )
+    .subscribe((resp:any)=>{
+      this.listOfProductoImages = [];
+      for (var i =0; i < resp.length; i++){       
+        console.log(resp[i])
+        this.listOfProductoImages.push(resp[i]);     
+        
+        this.beforeUpload({
+          uid: i  as any as string,
+          name: resp[i].imagen.split('/')[3],
+          status: 'done',
+          response: 'Server Error 500', // custom error message to show
+          url: this.url_backend + resp[i].imagen
+        });
+        
+     
+      }
+      console.log(this.listOfProductoImages)
+      console.log(this.fileList)
+    }
+    )
+      
   }
 
   public actualizarProducto()
@@ -433,19 +485,54 @@ export class EditarComponent implements OnInit {
       )
       .subscribe(
         async (resp: any) => {  
-          console.log(resp);
-          Swal.fire({
-            title:'¡Producto editado exitosamente!'})
-            .then((result) => {
-            /* Read more about handling dismissals below */
-            if (result.dismiss === Swal.DismissReason.backdrop) {
-              this._router.navigate(['/inicio/productos/consultar']);
-            }
+          
+          this.addImageItem(this.productoInicial.id as any as string)
+          .then(img => {
+  
+            
+            /*this.listOfProductoImages.forEach((element: any) =>
+            {
+              this._producto
+              .deleteIndividualImagesOfProduct(element.id)
+        
+            })*/
 
-            if (result.isConfirmed) {
-              this._router.navigate(['/inicio/productos/consultar']);
+           
+            console.log(resp);
+            Swal.fire({
+              title:'¡Producto editado exitosamente!'})
+              .then((result) => {
+              if (result.dismiss === Swal.DismissReason.backdrop) {
+                this._router.navigate(['/inicio/productos/consultar']);
+              }
+  
+              if (result.isConfirmed) {
+                this._router.navigate(['/inicio/productos/consultar']);
+              }
+            });
+           
+            this.productoForm.patchValue({
+              nombre: '',
+              descripcion: '',
+              categoria: '',
+              subcategoria: '',
+              peso: '',
+              dimensiones: '',
+              material: '',
+              precio: '',
+              bodega: '',
+            });
+  
+            for (let control in this.productoForm.controls) {
+              this.productoForm.controls[control].setErrors(null);
             }
-          });
+            this.fileList = [];
+  
+            return true;
+           
+          }
+          )
+      
 
           return true;
         },
@@ -459,5 +546,90 @@ export class EditarComponent implements OnInit {
 
    }
 
+  handleRemove = (file: any) =>  {
+
    
+
+      /*await Swal.fire({
+      title: "¿Está seguro que desea eliminar esta imagen?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#6144ff',
+      cancelButtonColor: '#d33',
+      confirmButtonText: "Eliminar",
+      cancelButtonText: 'Cancelar',
+
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        console.log("Holi22")
+
+        if(!isNaN(Number(file.uid)) && file.uid < this.listOfProductoImages.length 
+        && this.listOfProductoImages[file.uid] != undefined && this.listOfProductoImages[file.uid].id != undefined  )
+        {
+          console.log("Holi")
+            this._producto
+          .deleteIndividualImagesOfProduct(this.listOfProductoImages[file.uid].id)
+          .pipe(
+          catchError((err) => {
+            Swal.close();
+            Swal.fire(
+              "Ha ocurrido un error al eliminar esta imagen"
+            );
+            return throwError(err);
+          })
+        )
+        .subscribe(
+          async (resp: any) => {
+           // Swal.close();
+            
+           // Swal.fire("Imagen borrada con exito");
+            
+          },
+          (error:any) => {
+            console.error('Error:' + error);
+            return throwError(error);
+          },
+          () => console.log('HTTP request completed.')
+        );
+        }
+        console.log("Holi555")
+        return true;
+      
+      }
+      return true;
+    });     */
+
+    
+    if(!isNaN(Number(file.uid)) && file.uid < this.listOfProductoImages.length 
+    && this.listOfProductoImages[file.uid] != undefined && this.listOfProductoImages[file.uid].id != undefined  )
+    {
+      console.log("Holi")
+        this._producto
+      .deleteIndividualImagesOfProduct(this.listOfProductoImages[file.uid].id)
+      .pipe(
+      catchError((err) => {
+        Swal.close();
+        Swal.fire(
+          "Ha ocurrido un error al eliminar esta imagen"
+        );
+        return throwError(err);
+      })
+    )
+    .subscribe(
+      async (resp: any) => {
+     
+        
+      },
+      (error:any) => {
+        console.error('Error:' + error);
+        return throwError(error);
+      },
+      () => console.log('HTTP request completed.')
+    );
+    }
+    return true;
+  
+  }
+
+ 
 }

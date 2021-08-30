@@ -52,5 +52,30 @@ export class ProductoService {
   }
   
 
+  getProductoImagenes(key:number)
+  {
+    let url = URL_SERVICIOS.imagen_producto + key + '/';
+    
+    return this._http.get(url);
+
+  }
+
+  deleteAllImagesOfProduct(idProducto:number)
+  {
+    let url = URL_SERVICIOS.imagen_producto + idProducto + '/';
+    
+    return this._http.delete(url);
+
+  }
+
+  deleteIndividualImagesOfProduct(idImageProducto:number)
+  {
+    let url = URL_SERVICIOS.imagen_individual_producto + idImageProducto + '/';
+    
+    return this._http.delete(url);
+
+  }
+
+
 
 }
