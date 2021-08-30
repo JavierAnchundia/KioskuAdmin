@@ -1,0 +1,72 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <a routerLink="/inicio/dashboard">
+      <i nz-icon nzType="home"></i>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
+      <span>Órdenes de compra</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div nz-row>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Órdenes de compra</h2>
+</div>
+
+<nz-table #filterTable [nzData]="ordersList" nzTableLayout="fixed" class="table manage-candidates-top mb-0">
+  <thead>
+    <tr>
+      <th class="text-center" *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn" [nzSortDirections]="column.sortDirections">
+        {{ column.name }}
+      </th>
+      <th class="action text-center">Asignar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="candidates-list" *ngFor="let orden of filterTable.data">
+      <td class="title">
+        <div>
+          <div>
+            <div>
+              <h5 class="mb-0"><a>Orden Nº {{ orden?.id }} </a></h5>
+            </div>
+            <div>
+              <ul>
+                <li><i nz-icon nzType="dollar" nzTheme="outline"></i> {{ orden?.total }} </li>
+                <li><i nz-icon nzType="shopping-cart" nzTheme="outline"></i> {{ orden?.totalCompra }}
+                  productos
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <div>
+          <ul>
+            <li><i nz-icon nzType="aim" nzTheme="outline"></i> {{ orden?.direccion }} </li>
+            <li><i nz-icon nzType="global" nzTheme="outline"></i> {{ orden?.ciudad }} </li>
+          </ul>
+        </div>
+      </td>
+      <td class="text-center">
+        {{ orden?.dateCreated | date }}
+      </td>
+      <td class="candidate-list-favourite-time text-center">
+        <a class="pending" *ngIf="orden?.estadoCompra == 'Por entregar'">
+          <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
+        </a>
+        <span class="candidate-list-time order-1"> {{ orden?.estadoCompra }}</span>
+      </td>
+      <td>
+        <ul>
+          <li class="text-center"><a (click)="addOrderToMyList(orden?.estado)"><i nz-icon nzType="plus-circle" nzTheme="fill"></i></a></li>
+        </ul>
+      </td>
+    </tr>
+
+  </tbody>
+</nz-table>
