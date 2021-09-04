@@ -16,7 +16,7 @@
   <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Nuevo anuncio</h2>
 </div>
 
-<form nz-form [nzLayout]="anuncioForm.get('formLayout')?.value" [formGroup]="anuncioForm" (ngSubmit)="submitForm()">
+<form nz-form [nzLayout]="anuncioForm.get('formLayout')?.value" [formGroup]="anuncioForm">
   <nz-form-item>
     <nz-form-label [nzSpan]="4">Titulo</nz-form-label>
     <nz-form-control [nzSpan]="14" [nzErrorTip]="tituloErrorTpl">
@@ -37,12 +37,24 @@
       </ng-template>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item nz-col nzSpan="14" nz-row nzJustify="start" >
+    <div class="form-group">
 
+    <nz-upload nzListType="picture" [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+      <button nz-button nzType="primary">
+        <i nz-icon nzType="upload"></i>
+        Subir imágenes
+      </button>
+    </nz-upload>
+    <p *ngIf="fileList.length === 0" class='imagenWarning' >¡Por favor suba al menos una imagen!</p>
+
+     </div>
+ </nz-form-item>
 
 
   <nz-form-item>
     <nz-form-control [nzOffset]="7" [nzSpan]="12">
-      <button nz-button nzType="primary" [disabled]="!anuncioForm.valid">Guardar</button>
+      <button (click)="submitForm()" nz-button nzType="primary">Guardar</button>
     </nz-form-control>
   </nz-form-item>
 </form>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzUploadFile } from 'ng-zorro-antd/upload';
+import URL_SERVICIOS from 'src/app/config/config';
 import { Anuncio } from 'src/app/models/anuncio';
 import { AnuncioService } from 'src/app/services/anuncio.service';
 import Swal from 'sweetalert2';
@@ -14,6 +16,19 @@ export class EditarComponent implements OnInit {
   public anuncioForm!: FormGroup;
   private params: any = '';
   public currentAdv!: Anuncio;
+  public fileList: NzUploadFile[] = [];
+  public uploading = false;
+  private url_backend: string = URL_SERVICIOS.url_static;
+
+  beforeUpload = (file: NzUploadFile): boolean => {
+    this.fileList = this.fileList.concat(file);
+    if (this.fileList.length > 1){
+      console.log('es mayor a 1');
+      this.fileList = this.fileList.slice(-1);
+      console.log(this.fileList);
+    }
+    return false;
+  };
 
   constructor(
     private anuncio: AnuncioService,
@@ -46,7 +61,13 @@ export class EditarComponent implements OnInit {
     this.anuncio.getAnuncioById(this.params.anuncio)
     .then((data) => {
       this.currentAdv = data;
-      console.log(this.currentAdv);
+      this.beforeUpload({
+        uid: '1',
+        name: data.banner.split('/')[3],
+        status: 'done',
+        response: 'Server Error 500', // custom error message to show
+        url: this.url_backend + data.banner
+      });
       this.anuncioForm.patchValue({
         titulo: this.currentAdv.titulo,
         descripcion: this.currentAdv.descripcion,
@@ -63,7 +84,6 @@ export class EditarComponent implements OnInit {
         this.anuncioForm.controls[i].updateValueAndValidity();
       }
     }
-
     if (this.anuncioForm.valid) {
       this.editarAnuncio(this.anuncioForm.value);
     }
@@ -73,8 +93,12 @@ export class EditarComponent implements OnInit {
   editarAnuncio(anuncioData: any): void {
     const anuncioFD = new FormData();
     Swal.showLoading();
+    console.log(this.fileList);
+    let file: File = this.fileList.pop()?.originFileObj!;
+    console.log(file);
     anuncioFD.append('titulo', anuncioData.titulo);
     anuncioFD.append('descripcion', anuncioData.descripcion);
+    anuncioFD.append('banner', file);
 
     this.anuncio.editAnuncio(String(this.currentAdv.id), anuncioFD)
       .then((data: any) => {
@@ -91,6 +115,7 @@ export class EditarComponent implements OnInit {
       })
 
   }
+
 }
 
 

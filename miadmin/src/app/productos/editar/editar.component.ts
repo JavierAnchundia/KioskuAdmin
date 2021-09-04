@@ -41,7 +41,7 @@ import { BodegaProductoService } from 'src/app/services/bodega-producto.service'
 export class EditarComponent implements OnInit {
 
 
-  
+
   productoForm:FormGroup;
   listOfBodegas: Ciudad[] = [];
   mensajeSubcategoria: string = "Por favor escoja primero una categoría";
@@ -62,19 +62,19 @@ export class EditarComponent implements OnInit {
 
   //@ViewChild('myselect') myselect: ElementRef<any>;
 
-    
+
   fileList: NzUploadFile[] = [];
   uploading = false;
-  
+
   beforeUpload = (file: NzUploadFile): boolean => {
     this.fileList = this.fileList.concat(file);
     return false;
   };
-  
+
   constructor(
     private _formBuilder: FormBuilder,
     private _ciudad: CiudadService,
-    private _bodega: BodegaService, 
+    private _bodega: BodegaService,
     public _router: Router,
     private _route: ActivatedRoute,
     private _item: ItemsService,
@@ -83,7 +83,7 @@ export class EditarComponent implements OnInit {
     private _subcategoria:SubcategoriaService,
     private _imagenProducto:ImagenProductoService,
     private _bodegaProducto:BodegaProductoService,
-    
+
   ) {
     this.productoForm = this._formBuilder.group({
       nombre: ["", [Validators.maxLength(50), Validators.required]],
@@ -111,7 +111,7 @@ export class EditarComponent implements OnInit {
     this.cargarBodegas();
     this.cargarProducto(this.idProducto);
     this.cargarCategorias();
-    
+
   }
 
   submitForm():void
@@ -124,7 +124,7 @@ export class EditarComponent implements OnInit {
     }
    }
 
-   
+
 
   private async cargarProducto(id:number){
     await this._producto.getProductCategoriaSubcategoria(id)
@@ -168,7 +168,7 @@ export class EditarComponent implements OnInit {
       this.cargarProductoImagenes(id);
     }
       )
-      
+
   }
 
 
@@ -198,8 +198,8 @@ export class EditarComponent implements OnInit {
     console.log(this.productoForm.value.subcategoria);
     console.log(this.idProducto);
 
-    
-  
+
+
     this._producto
        .crearProducto(formData)
        .catch(error => {
@@ -210,27 +210,27 @@ export class EditarComponent implements OnInit {
           return throwError(error);
       })
        .then(async (producto:any) => {
-        
+
         if(producto)
         {
 
           this.addImageItem(producto.id)
           .then(img => {
-  
+
             Swal.fire({
               title:'El producto se ha creado con éxito.'})
               .then((result) => {
               if (result.dismiss === Swal.DismissReason.backdrop) {
                 this._router.navigate(['/inicio/productos/crear']);
-   
+
               }
-   
+
               if (result.isConfirmed) {
                 this._router.navigate(['/inicio/productos/crear']);
-   
+
               }
             });
-           
+
             this.productoForm.patchValue({
               nombre: '',
               descripcion: '',
@@ -242,29 +242,29 @@ export class EditarComponent implements OnInit {
               precio: '',
               bodega: '',
             });
-  
+
             for (let control in this.productoForm.controls) {
               this.productoForm.controls[control].setErrors(null);
             }
             this.fileList = [];
-  
+
             return true;
-           
+
           }
           )
           .catch(error => {
             console.log(error);
           })        }
-         
-                  
+
+
         },
         (error:any) => {
           console.error('Error:' + error);
           return throwError(error);
         },
-       
+
       );
-      
+
 
    }
 
@@ -272,34 +272,34 @@ export class EditarComponent implements OnInit {
     this._bodega.getActiveBodegas()
     .subscribe((resp:any)=>{
       this.listOfBodegas = [];
-      for (var i =0; i < resp.length; i++){       
+      for (var i =0; i < resp.length; i++){
         console.log(resp[i])
-        this.listOfBodegas.push(resp[i]);        
+        this.listOfBodegas.push(resp[i]);
       }
     }
     )
-      
+
   }
 
   cargarCategorias(){
     this._categoria.getCategorias()
     .subscribe((resp:any)=>{
       this.listOfCategorias = [];
-      for (var i =0; i < resp.length; i++){       
+      for (var i =0; i < resp.length; i++){
         console.log(resp[i])
-        this.listOfCategorias.push(resp[i]);        
+        this.listOfCategorias.push(resp[i]);
       }
     }
     )
-      
+
   }
 
   cargarSubCategorias(categoriaKey:number){
     this._subcategoria.getSubcategorias(categoriaKey)
     .subscribe((resp:any)=>{
       this.listOfSubCategorias = [];
-      for (var i =0; i < resp.length; i++){       
-        this.listOfSubCategorias.push(resp[i]);        
+      for (var i =0; i < resp.length; i++){
+        this.listOfSubCategorias.push(resp[i]);
       }
 
       console.log(this.listOfSubCategorias.length == 0)
@@ -307,7 +307,7 @@ export class EditarComponent implements OnInit {
         this.productoForm.get('subcategoria')!.clearValidators();
         this.productoForm.get('subcategoria')!.updateValueAndValidity();
         this.conSubcategoria = false;
-      
+
       }
       else
       {
@@ -317,23 +317,23 @@ export class EditarComponent implements OnInit {
 
       }
 
-    
+
 
       console.log(this.productoForm.value.subcategoria);
     }
     )
-      
+
   }
 
   onChangeCreditos(value: any): void {
 
     /*if (value[0] !== undefined){
       console.log(value);
-     
+
       if((value as any as string).indexOf('.') == -1){
         this.productoForm.get('peso')!.setValidators([Validators.required, Validators.maxLength(6), Validators.pattern("^\d{0,5}(\d\.\d?|\.\d)?\d?$")]);
         this.productoForm.get('peso')!.updateValueAndValidity();
-      
+
       }
       else
       {
@@ -353,11 +353,11 @@ export class EditarComponent implements OnInit {
       if((value as any as string).indexOf('.') == -1){
         this.productoForm.get('peso')!.setValidators([Validators.required, Validators.maxLength(6), Validators.pattern("^\d{0,5}(\d\.\d?|\.\d)?\d?$")]);
         this.productoForm.get('peso')!.updateValueAndValidity();
-      
+
       }
       else
       {
-      
+
         this.productoForm.get('peso')!.setValidators([Validators.required, Validators.maxLength(9), Validators.pattern("^\d{0,5}(\d\.\d?|\.\d)?\d?$")]);
         this.productoForm.get('peso')!.updateValueAndValidity();
 
@@ -366,24 +366,24 @@ export class EditarComponent implements OnInit {
   }
 
   onChangeCategory(value: any): void {
-    
+
 
     if (value[0] !== undefined && value != "categoriaOriginalValue"){
       console.log(this.productoForm.value.subcategoria);
       this.categoriaElegida = true;
-    
+
       this.productoForm.get('subcategoria')!.reset();
       this.cargarSubCategorias(value[0]);
     }
   }
-  
+
   addImageItem(idProducto: string): Promise<any>{
-    
+
     this.uploading = true;
     const imagesList:any[] = [];
     this.fileList.forEach((element: any) =>
     {
-      if(isNaN(Number(element.uid)) || element.uid >= this.listOfProductoImages.length 
+      if(isNaN(Number(element.uid)) || element.uid >= this.listOfProductoImages.length
       || this.listOfProductoImages[element.uid] == undefined || this.listOfProductoImages[element.uid].imagen == undefined
       || this.listOfProductoImages[element.uid].imagen.split('/')[3] == undefined
       || this.listOfProductoImages[element.uid].imagen.split('/')[3] != element.name  )
@@ -397,12 +397,12 @@ export class EditarComponent implements OnInit {
             }
           )
       }
-      
+
 
     })
 
     console.log(imagesList);
-    
+
     return this._imagenProducto.createImagenProducto({imagesList})
   }
 
@@ -420,10 +420,10 @@ export class EditarComponent implements OnInit {
     )
     .subscribe((resp:any)=>{
       this.listOfProductoImages = [];
-      for (var i =0; i < resp.length; i++){       
+      for (var i =0; i < resp.length; i++){
         console.log(resp[i])
-        this.listOfProductoImages.push(resp[i]);     
-        
+        this.listOfProductoImages.push(resp[i]);
+
         this.beforeUpload({
           uid: i  as any as string,
           name: resp[i].imagen.split('/')[3],
@@ -431,14 +431,14 @@ export class EditarComponent implements OnInit {
           response: 'Server Error 500', // custom error message to show
           url: this.url_backend + resp[i].imagen
         });
-        
-     
+
+
       }
       console.log(this.listOfProductoImages)
       console.log(this.fileList)
     }
     )
-      
+
   }
 
   public actualizarProducto()
@@ -471,7 +471,7 @@ export class EditarComponent implements OnInit {
     formData.append('titulo',this.productoForm.value.nombre);
     //formData.append('bodega',this.productoForm.value.bodega);
 
-  
+
     this._producto
        .actualizarProducto(formData,this.productoInicial.id)
        .pipe(
@@ -484,20 +484,20 @@ export class EditarComponent implements OnInit {
         })
       )
       .subscribe(
-        async (resp: any) => {  
-          
+        async (resp: any) => {
+
           this.addImageItem(this.productoInicial.id as any as string)
           .then(img => {
-  
-            
+
+
             /*this.listOfProductoImages.forEach((element: any) =>
             {
               this._producto
               .deleteIndividualImagesOfProduct(element.id)
-        
+
             })*/
 
-           
+
             console.log(resp);
             Swal.fire({
               title:'¡Producto editado exitosamente!'})
@@ -505,12 +505,12 @@ export class EditarComponent implements OnInit {
               if (result.dismiss === Swal.DismissReason.backdrop) {
                 this._router.navigate(['/inicio/productos/consultar']);
               }
-  
+
               if (result.isConfirmed) {
                 this._router.navigate(['/inicio/productos/consultar']);
               }
             });
-           
+
             this.productoForm.patchValue({
               nombre: '',
               descripcion: '',
@@ -522,17 +522,17 @@ export class EditarComponent implements OnInit {
               precio: '',
               bodega: '',
             });
-  
+
             for (let control in this.productoForm.controls) {
               this.productoForm.controls[control].setErrors(null);
             }
             this.fileList = [];
-  
+
             return true;
-           
+
           }
           )
-      
+
 
           return true;
         },
@@ -542,13 +542,13 @@ export class EditarComponent implements OnInit {
         },
         () => console.log('HTTP request completed.')
       );
-      
+
 
    }
 
   handleRemove = (file: any) =>  {
 
-   
+
 
       /*await Swal.fire({
       title: "¿Está seguro que desea eliminar esta imagen?",
@@ -563,7 +563,7 @@ export class EditarComponent implements OnInit {
       if (result.isConfirmed) {
         console.log("Holi22")
 
-        if(!isNaN(Number(file.uid)) && file.uid < this.listOfProductoImages.length 
+        if(!isNaN(Number(file.uid)) && file.uid < this.listOfProductoImages.length
         && this.listOfProductoImages[file.uid] != undefined && this.listOfProductoImages[file.uid].id != undefined  )
         {
           console.log("Holi")
@@ -581,9 +581,9 @@ export class EditarComponent implements OnInit {
         .subscribe(
           async (resp: any) => {
            // Swal.close();
-            
+
            // Swal.fire("Imagen borrada con exito");
-            
+
           },
           (error:any) => {
             console.error('Error:' + error);
@@ -594,16 +594,15 @@ export class EditarComponent implements OnInit {
         }
         console.log("Holi555")
         return true;
-      
+
       }
       return true;
     });     */
 
-    
-    if(!isNaN(Number(file.uid)) && file.uid < this.listOfProductoImages.length 
+
+    if(!isNaN(Number(file.uid)) && file.uid < this.listOfProductoImages.length
     && this.listOfProductoImages[file.uid] != undefined && this.listOfProductoImages[file.uid].id != undefined  )
     {
-      console.log("Holi")
         this._producto
       .deleteIndividualImagesOfProduct(this.listOfProductoImages[file.uid].id)
       .pipe(
@@ -617,8 +616,8 @@ export class EditarComponent implements OnInit {
     )
     .subscribe(
       async (resp: any) => {
-     
-        
+
+
       },
       (error:any) => {
         console.error('Error:' + error);
@@ -628,8 +627,8 @@ export class EditarComponent implements OnInit {
     );
     }
     return true;
-  
+
   }
 
- 
+
 }
