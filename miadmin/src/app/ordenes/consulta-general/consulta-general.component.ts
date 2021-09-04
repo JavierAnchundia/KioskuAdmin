@@ -5,15 +5,15 @@ import { ColumnItem } from 'src/app/models/columnItem';
 import { Orden } from 'src/app/models/orden';
 import { OrdenesService } from 'src/app/services/ordenes.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-misentregas',
-  templateUrl: './misentregas.component.html',
-  styleUrls: ['./misentregas.component.css'],
+  selector: 'app-consulta-general',
+  templateUrl: './consulta-general.component.html',
+  styleUrls: ['./consulta-general.component.css'],
   providers: [DatePipe]
 })
-export class MisentregasComponent implements OnInit {
+
+export class ConsultaGeneralComponent implements OnInit {
 
   public ordersList: any[] = [];
   public loading = true;
@@ -63,6 +63,7 @@ export class MisentregasComponent implements OnInit {
       sortFn: (a: Orden, b: Orden) => a.estadoCompra.length - b.estadoCompra.length,
       filterMultiple: false,
       listOfFilter: [
+        { text: 'Por entregar', value: 'Por entregar' },
         { text: 'Procesando', value: 'Procesando' },
         { text: 'Entregado', value: 'Entregado' }
       ],
@@ -78,68 +79,22 @@ export class MisentregasComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = this.usuario.getCurrentUserId();
     this.loadOrdersData();
   }
 
   loadOrdersData(): void{
-    this.ordenes.retrieveMyDeliveries(this.userId)
+    this.ordenes.retrieveAllOrders()
     .then((data: any) => {
       this.ordersList = data;
       this.loading = false;
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+      console.log(err);
+      this.loading = false;
+    })
   }
 
   sortDateTime(date1: Date, date2: Date): number {
     return Math.round((new Date(new Date(date2)).setHours(12)-new Date(new Date(date1)).setHours(12))/8.64e7);
-  }
-
-  showConfirm(id: string): void {
-    this.confirmModal = this.modal.confirm({
-      nzTitle: '¿Está seguro que desea actualizar el estado de la compra?',
-      nzContent: 'La orden se marcará como entregada.',
-      nzOnOk: () => {this.updateOrder(id)}
-
-    });
-  }
-
-  updateOrderDeliveryStatus(id: string): void{
-    if (this.usuario.getUserRole() === 'transportista'){
-        this.showConfirm(id);
-    }
-    else
-    {
-      this.error('Usuario no autorizado', 'Acción permitida sólo para transportistas.')
-    }
-  }
-
-  updateOrder(id: string): void{
-    Swal.showLoading();
-    const deliveryMan = {estado: 'Entregado', dateUpdated: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm')};
-    this.ordenes.updateOrderStatus(id, deliveryMan)
-        .then(() => {
-          Swal.close();
-          this.success('Orden actualizada.', 'La orden se actualizó con éxito.');
-        })
-        .catch(err => {
-          console.log(err);
-          this.error('Error en la operación.', 'No se pudo actualizar la orden. Intente más tarde.')
-        })
-  }
-
-  error(title: string, message: string): void {
-    const modalDlg = this.modal.error({
-      nzTitle: title,
-      nzContent: message
-    });
-    setTimeout(() => modalDlg.destroy(), 1800);
-  }
-
-  success(title: string, message: string): void {
-    this.modal.success({
-      nzTitle: title,
-      nzContent: message
-    }).afterClose.next(this.loadOrdersData());
   }
 }

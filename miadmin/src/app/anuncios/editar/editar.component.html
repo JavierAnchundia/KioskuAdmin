@@ -1,0 +1,60 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <a routerLink="/inicio/dashboard">
+      <i nz-icon nzType="home"></i>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item routerLink="/inicio/anuncios">
+    <a>
+      <i nz-icon nzType="picture" nzTheme="outline"></i>
+      <span>Anuncios</span>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Editar</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div nz-row>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Nuevo anuncio</h2>
+</div>
+
+<form nz-form [nzLayout]="anuncioForm.get('formLayout')?.value" [formGroup]="anuncioForm">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Titulo</nz-form-label>
+    <nz-form-control [nzSpan]="14" [nzErrorTip]="tituloErrorTpl">
+      <input nz-input formControlName="titulo" />
+      <ng-template #tituloErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Descripción</nz-form-label>
+    <nz-form-control [nzSpan]="14" [nzErrorTip]="descripcionErrorTpl">
+      <nz-textarea-count [nzMaxCharacterCount]="250">
+        <textarea nz-input required formControlName="descripcion" type="text" rows="4"></textarea>
+      </nz-textarea-count>
+      <ng-template #descripcionErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nz-col nzSpan="14" nz-row nzJustify="start" >
+    <div class="form-group">
+
+    <nz-upload nzListType="picture" [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+      <button nz-button nzType="primary">
+        <i nz-icon nzType="upload"></i>
+        Subir imágenes
+      </button>
+    </nz-upload>
+    <p *ngIf="fileList.length === 0" class='imagenWarning' >¡Por favor suba al menos una imagen!</p>
+
+     </div>
+ </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control [nzOffset]="7" [nzSpan]="12">
+      <button (click)="submitForm()" nz-button nzType="primary">Guardar</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

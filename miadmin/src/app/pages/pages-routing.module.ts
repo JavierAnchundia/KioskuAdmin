@@ -9,7 +9,11 @@ import {ProductosComponent} from '../productos/productos.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { MembresiaComponent } from '../membresia/membresia.component';
 import { OrdenesComponent } from '../ordenes/ordenes/ordenes.component';
+<<<<<<< HEAD
 import { TarifaTransporteComponent } from '../tarifa-transporte/tarifa-transporte.component';
+=======
+import { AnunciosComponent } from '../anuncios/anuncios/anuncios.component';
+>>>>>>> 2aa7f43d855c2619a6a2510e4aa8cd443ca7418f
 
 const routes: Routes = [
   {
@@ -52,12 +56,19 @@ const routes: Routes = [
   component: OrdenesComponent,
   loadChildren: () => import('../ordenes/ordenes.module').then(m => m.OrdenesModule)
   },
+<<<<<<< HEAD
 
   { path: 'tarifa-transporte',
   component: TarifaTransporteComponent,
   loadChildren: () => import('../tarifa-transporte/tarifa-transporte.module').then(m => m.TarifaTransporteModule)
   },
 
+=======
+  { path: 'anuncios',
+  component: AnunciosComponent,
+  loadChildren: () => import('../anuncios/anuncios.module').then(m => m.AnunciosModule)
+  },
+>>>>>>> 2aa7f43d855c2619a6a2510e4aa8cd443ca7418f
   { path: 'dashboard',
     component: DashboardComponent,
   },

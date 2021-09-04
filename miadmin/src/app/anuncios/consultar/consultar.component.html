@@ -1,0 +1,60 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <a routerLink="/inicio/dashboard">
+      <i nz-icon nzType="home"></i>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a>
+      <i nz-icon nzType="picture" nzTheme="outline"></i>
+      <span>Anuncios</span>
+    </a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<div nz-row>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Anuncios</h2>
+  <button routerLink="/inicio/anuncios/crear" nzXs="4" nzSm="4" nzMd="6" nzLg="4" nzXl="4" nz-button nzType="primary">
+    Crear anuncio </button>
+</div>
+<nz-table #filterTable [nzData]="anunciosList" nzTableLayout="fixed" nzShowPagination="true" [nzLoading]="loading">
+  <thead>
+    <tr>
+      <th nzAlign= 'center' class="header" nzWidth="15%" >Banner</th>
+      <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections">
+        {{ column.name }}
+      </th>
+      <th nzWidth="15%">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of filterTable.data">
+      <td nzAlign= 'center' *ngIf="data.banner != null" >
+        <img
+          nz-image
+          class="banner"
+          nzSrc="{{ url_backend }}{{ data.banner }}"
+          alt="Sin imagen adjunta"
+          title=""
+
+        />
+      </td>
+      <td>{{ data.titulo }}</td>
+      <td>{{ data.descripcion }}</td>
+      <td>{{ data.dateCreated | date }}</td>
+      <td>
+        <a nz-button nzType="link" (click)="openEditAnuncio(data.id)">
+          <i nz-icon nzType="edit" nzTheme="fill"></i>
+        </a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a nz-button nzType="link" nzDanger nz-popconfirm
+        nzPopconfirmTitle="¿Está seguro que desea eliminarla?"
+        nzPopconfirmPlacement="top"
+        (nzOnConfirm)="confirmDelete(data.id)"
+        >
+          <i nz-icon nzType="delete" nzTheme="fill"></i>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

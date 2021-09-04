@@ -10,13 +10,15 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { MisentregasComponent } from './misentregas/misentregas.component';
+import { ConsultaGeneralComponent } from './consulta-general/consulta-general.component';
 
 
 @NgModule({
   declarations: [
     OrdenesComponent,
     ConsultarComponent,
-    MisentregasComponent
+    MisentregasComponent,
+    ConsultaGeneralComponent
   ],
   imports: [
     CommonModule,

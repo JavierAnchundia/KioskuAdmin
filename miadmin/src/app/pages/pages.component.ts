@@ -12,6 +12,9 @@ export class PagesComponent implements OnInit {
   nombre = "Jefferson Guitierritos";
   public currentUserInfo: any = null;
   public currentUserId: string = '';
+  public isAdmin = false;
+  public isEval = false;
+  public isTransp = false;
 
   constructor(
     private usuario: UsuarioService,
@@ -24,7 +27,13 @@ export class PagesComponent implements OnInit {
 
   loadUserInfo(): void{
     this.usuario.getUserInfo(this.currentUserId)
-    .then((userInfo: any) => this.currentUserInfo = userInfo)
+    .then((userInfo: any) => {
+      this.currentUserInfo = userInfo;
+      this.isTransp = this.currentUserInfo.rol === 'transportista';
+      this.isAdmin = this.currentUserInfo.rol === 'admin';
+      this.isEval = this.currentUserInfo.rol === 'evaluador';
+
+    })
     .catch((error: any) => console.log(error))
   }
 

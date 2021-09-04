@@ -1,0 +1,63 @@
+<nz-breadcrumb>
+  <nz-breadcrumb-item>
+    <a routerLink="/inicio/dashboard">
+      <i nz-icon nzType="home"></i>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item routerLink="/inicio/anuncios">
+    <a>
+      <i nz-icon nzType="picture" nzTheme="outline"></i>
+      <span>Anuncios</span>
+    </a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>Crear</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div nz-row>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Nuevo anuncio</h2>
+</div>
+
+<form nz-form [nzLayout]="anuncioForm.get('formLayout')?.value" [formGroup]="anuncioForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Titulo</nz-form-label>
+    <nz-form-control [nzSpan]="14" [nzErrorTip]="tituloErrorTpl">
+      <input nz-input formControlName="titulo" />
+      <ng-template #tituloErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Descripción</nz-form-label>
+    <nz-form-control [nzSpan]="14" [nzErrorTip]="descripcionErrorTpl">
+      <nz-textarea-count [nzMaxCharacterCount]="250">
+        <textarea nz-input required formControlName="descripcion" type="text" rows="4"></textarea>
+      </nz-textarea-count>
+      <ng-template #descripcionErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">Este campo es obligatorio!</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4">Banner</nz-form-label>
+    <nz-form-control [nzSpan]="14" [nzErrorTip]="bannerErrorTpl">
+    <nz-upload [(nzFileList)]="fileList" nzLimit="1">
+      <button nz-button>
+        <i nz-icon nzType="upload"></i>
+        Cargar imagen
+      </button>
+    </nz-upload>
+    <ng-template #bannerErrorTpl let-control>
+      <ng-container *ngIf="fileList.length == 0">Agregar una imagen para continuar.</ng-container>
+    </ng-template>
+  </nz-form-control>
+
+  </nz-form-item>
+
+
+  <nz-form-item>
+    <nz-form-control [nzOffset]="7" [nzSpan]="12">
+      <button nz-button nzType="primary" [disabled]="!anuncioForm.valid || fileList.length == 0">Guardar</button>
+      <button nz-button (click)="resetForm($event)">Limpiar</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

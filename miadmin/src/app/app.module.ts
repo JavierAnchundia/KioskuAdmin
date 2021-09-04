@@ -40,6 +40,7 @@ import { ChartsModule } from 'ng2-charts';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { MembresiaComponent } from './membresia/membresia.component';
 import { TarifaTransporteComponent } from './tarifa-transporte/tarifa-transporte.component';
+import { AnunciosComponent } from './anuncios/anuncios/anuncios.component';
 
 registerLocaleData(es, 'es');
 
@@ -58,6 +59,7 @@ registerLocaleData(es, 'es');
     DashboardComponent,
     MembresiaComponent,
     TarifaTransporteComponent,
+    AnunciosComponent,
 
   ],
   imports: [
