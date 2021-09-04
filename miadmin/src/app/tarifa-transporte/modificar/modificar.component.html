@@ -1,0 +1,95 @@
+<nz-breadcrumb class = "breadcrumbSpace">
+    <nz-breadcrumb-item>
+      <a routerLink="/inicio/dashboard">
+        <i nz-icon nzType="home"></i>
+      </a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+        <a routerLink="/inicio/tarifa-transporte/modificar">
+            <i nz-icon nzType="car" nzTheme="outline"></i>
+            <span>Tarifa Transporte</span>
+        </a>
+      </nz-breadcrumb-item>
+
+   
+</nz-breadcrumb>
+
+
+<div nz-row nzJustify="start" class="nombreProducto">
+    <h2 nz-typography nz-col nzSpan="24" id="titulo"> Tarifa Transporte</h2>
+    <form nzSpan="24" nz-col nz-form [formGroup]="tarifaEntregaForm" (ngSubmit)="submitForm()">
+    <div nz-row >
+          
+         
+
+          
+          <nz-form-item  nz-col nzSpan="13" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="peso"> Misma Ciudad </nz-form-label>
+            <nz-form-control nzSpan="7" nz-col  [nzSm]="7" [nzXs]="7" [nzErrorTip]=mismaCiudadErrorMsg>
+              <nz-input-group  nzAddOnBefore="$">
+                <input nz-input placeholder="Tarifa Transporte"
+                  formControlName="mismaCiudad" id="mismaCiudad" />
+              </nz-input-group>
+              <ng-template #mismaCiudadErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese una tarifa para: Misma Ciudad!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiada largo!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern')">¡Debe ingresar un número, máximo 6 dígitos enteros y máximo 2 decimales!</ng-container>
+
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item  nz-col nzSpan="13" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="peso">Diferentes Ciudades - Misma Provincia </nz-form-label>
+            <nz-form-control nzSpan="7" nz-col  [nzSm]="7" [nzXs]="7"  [nzErrorTip]=difCiudadMismaProvinciaErrorMsg>
+              <nz-input-group  nzAddOnBefore="$">
+                <input nz-input placeholder="Tarifa Transporte"
+                  formControlName="difCiudadMismaProvincia" id="difCiudadMismaProvincia" />
+              </nz-input-group>
+              <ng-template #difCiudadMismaProvinciaErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese una tarifa para: Diferentes Ciudades - Misma Provincia!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiada largo!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern')">¡Debe ingresar un número, máximo 6 dígitos enteros y máximo 2 decimales!</ng-container>
+
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item  nz-col nzSpan="13" nz-row nzJustify="start">
+            <nz-form-label class ="labelNombre" nz-typography nz-col nzSpan="24" id="titulo" [nzSm]="24" [nzXs]="24" nzRequired nzFor="peso">Diferentes Provincias </nz-form-label>
+            <nz-form-control nzSpan="7" nz-col  [nzSm]="7" [nzXs]="7"  [nzErrorTip]=difProvinciaErrorMsg>
+              <nz-input-group nzAddOnBefore="$">
+                <input nz-input placeholder="Tarifa Transporte"
+                  formControlName="difProvincia" id="difProvincia"/>
+              </nz-input-group>
+              <ng-template #difProvinciaErrorMsg let-control>
+                <ng-container *ngIf="control.hasError('required')">¡Por favor ingrese una tarifa para: Diferentes Provincias!</ng-container>
+                <ng-container *ngIf="control.hasError('maxlength')">¡El texto es demasiada largo!</ng-container>
+                <ng-container *ngIf="control.hasError('pattern')">¡Debe ingresar un número, máximo 6 dígitos enteros y máximo 2 decimales!</ng-container>
+
+                
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+
+       
+
+
+         
+    </div>
+    
+    </form>
+
+  
+
+</div>
+
+<div nz-row class="guardarButton">
+  <div nz-typography nz-col nzSpan="24"></div>
+
+  <button #Guardar (click)="actualizarTarifaEntrega()" [disabled]="!tarifaEntregaForm.valid" nz-col nzSpan="2" nzOffset="22" nz-button nzType="primary"> Guardar </button>
+
+</div>
+

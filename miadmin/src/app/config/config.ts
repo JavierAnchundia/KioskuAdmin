@@ -1,12 +1,12 @@
-const URL_ROOT = 'http://localhost:8000/api';
+/*const URL_ROOT = 'http://localhost:8000/api';
 const URL_ROOT_AUTH = 'http://localhost:8000';
 const URL_STATIC = 'http://localhost:8000/static';
+*/
 
-/*
 const URL_ROOT = 'http://192.168.100.222:8080/api';
 const URL_STATIC = 'http://192.168.100.222:8080/static';
 const URL_ROOT_AUTH = 'http://192.168.100.222:8080';
-*/
+
 
 const URL_SERVICIOS = {
   login: URL_ROOT + '/token/',
@@ -48,7 +48,9 @@ const URL_SERVICIOS = {
   recentProducts: URL_ROOT + '/most-recent/',
   ordenesPendientes: URL_ROOT + '/ordenes-pendientes/',
   misEntregas: URL_ROOT + '/deliveries/',
-  estadoCompra: URL_ROOT + '/estado-compra/'
+  estadoCompra: URL_ROOT + '/estado-compra/',
+
+  tarifa_entrega: URL_ROOT + '/tarifa-entrega/'
 };
 
 export default URL_SERVICIOS;

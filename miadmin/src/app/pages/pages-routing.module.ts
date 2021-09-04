@@ -9,6 +9,7 @@ import {ProductosComponent} from '../productos/productos.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { MembresiaComponent } from '../membresia/membresia.component';
 import { OrdenesComponent } from '../ordenes/ordenes/ordenes.component';
+import { TarifaTransporteComponent } from '../tarifa-transporte/tarifa-transporte.component';
 
 const routes: Routes = [
   {
@@ -46,10 +47,17 @@ const routes: Routes = [
   component: MembresiaComponent,
   loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule)
   },
+
   { path: 'ordenes',
   component: OrdenesComponent,
   loadChildren: () => import('../ordenes/ordenes.module').then(m => m.OrdenesModule)
   },
+
+  { path: 'tarifa-transporte',
+  component: TarifaTransporteComponent,
+  loadChildren: () => import('../tarifa-transporte/tarifa-transporte.module').then(m => m.TarifaTransporteModule)
+  },
+
   { path: 'dashboard',
     component: DashboardComponent,
   },
