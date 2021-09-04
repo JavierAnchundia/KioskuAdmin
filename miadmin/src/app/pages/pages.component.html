@@ -8,7 +8,7 @@
       <div class="sidebar-logo ">
 
             <img src="assets/icons/AVATAR.png" alt="logo">
-            <span > {{this.currentUserInfo?.name}}</span>
+            <span > {{this.currentUserInfo?.name.split(" ")[0]}}</span>
             <span><a (click)="logOut()">Salir</a></span>
 
 
@@ -75,9 +75,7 @@
             <li nz-menu-item nzMatchRouter>
               <a class='' routerLink="/inicio/tarifa-transporte/modificar"> Tarifa Transporte</a>
             </li>
-            <li nz-menu-item nzMatchRouter>
-              <a>Configuraciones3</a>
-            </li>
+          
           </ul>
         </li>
 
@@ -86,7 +84,7 @@
             <li nz-menu-item nzMatchRouter>
               <a class=''routerLink="/inicio/items/asignar">Sin asignar</a>
             </li>
-            <li nz-menu-item nzMatchRouter>
+            <li *ngIf="this.isEval" nz-menu-item nzMatchRouter>
               <a class=''routerLink="/inicio/items/mis-items">Mis items</a>
             </li>
 

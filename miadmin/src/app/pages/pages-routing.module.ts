@@ -9,68 +9,87 @@ import {ProductosComponent} from '../productos/productos.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { MembresiaComponent } from '../membresia/membresia.component';
 import { OrdenesComponent } from '../ordenes/ordenes/ordenes.component';
-<<<<<<< HEAD
 import { TarifaTransporteComponent } from '../tarifa-transporte/tarifa-transporte.component';
-=======
 import { AnunciosComponent } from '../anuncios/anuncios/anuncios.component';
->>>>>>> 2aa7f43d855c2619a6a2510e4aa8cd443ca7418f
+import { PagPermisosGuard } from '../guards/pagPermisos/pag-permisos.guard';
+import { UserAuthenticatedGuard } from '../guards/user-authenticated.guard';
 
 const routes: Routes = [
   {
     path: 'categorias',
     component: CategoriasComponent,
-    loadChildren: () => import('../categorias/categorias.module').then(m => m.CategoriasModule)
+    data: { titulo: 'Categorias' },
+    loadChildren: () => import('../categorias/categorias.module').then(m => m.CategoriasModule),
+    canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
   {
     path: 'welcome2',
     component: WelcomeComponent,
-    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule)
+    data: { titulo: 'Welcome2' },
+    loadChildren: () => import('./welcome/welcome.module').then(m => m.WelcomeModule),
+    canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
   { path: 'subcategorias',
     component: SubcategoriasComponent,
-    loadChildren: () => import('../subcategorias/subcategorias.module').then(m => m.SubcategoriasModule)
+    data: { titulo: 'Subcategorias' },
+    loadChildren: () => import('../subcategorias/subcategorias.module').then(m => m.SubcategoriasModule),
+    canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
   { path: 'bodegas',
   component: BodegaComponent,
-  loadChildren: () => import('../bodega/bodega.module').then(m => m.BodegaModule)
+  data: { titulo: 'Bodegas' },
+  loadChildren: () => import('../bodega/bodega.module').then(m => m.BodegaModule),
+  canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
   { path: 'items',
   component: ItemsComponent,
-  loadChildren: () => import('../items/items.module').then(m => m.ItemsModule)
+  data: { titulo: 'Items' },
+  loadChildren: () => import('../items/items.module').then(m => m.ItemsModule),
+  canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
   { path: 'productos',
   component: ProductosComponent,
-  loadChildren: () => import('../productos/productos.module').then(m => m.ProductosModule)
+  data: { titulo: 'Productos' },
+  loadChildren: () => import('../productos/productos.module').then(m => m.ProductosModule),
+  canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
   { path: 'membresia',
   component: MembresiaComponent,
-  loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule)
+  data: { titulo: 'Membresia' },
+  loadChildren: () => import('../membresia/membresia.module').then(m => m.MembresiaModule),
+  canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
   { path: 'ordenes',
   component: OrdenesComponent,
-  loadChildren: () => import('../ordenes/ordenes.module').then(m => m.OrdenesModule)
+  data: { titulo: 'Ordenes' },
+  loadChildren: () => import('../ordenes/ordenes.module').then(m => m.OrdenesModule),
+  canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
-<<<<<<< HEAD
 
   { path: 'tarifa-transporte',
   component: TarifaTransporteComponent,
-  loadChildren: () => import('../tarifa-transporte/tarifa-transporte.module').then(m => m.TarifaTransporteModule)
+  data: { titulo: 'Tarifa Transporte' },
+  loadChildren: () => import('../tarifa-transporte/tarifa-transporte.module').then(m => m.TarifaTransporteModule),
+  canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
-=======
   { path: 'anuncios',
   component: AnunciosComponent,
-  loadChildren: () => import('../anuncios/anuncios.module').then(m => m.AnunciosModule)
+  data: { titulo: 'Anuncios' },
+  loadChildren: () => import('../anuncios/anuncios.module').then(m => m.AnunciosModule),
+  canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
->>>>>>> 2aa7f43d855c2619a6a2510e4aa8cd443ca7418f
+
   { path: 'dashboard',
     component: DashboardComponent,
+    data: { titulo: 'Dashboard' },
+    canActivate: [PagPermisosGuard, UserAuthenticatedGuard],
   },
 
   {path:'', redirectTo: 'dashboard', pathMatch:'full'},

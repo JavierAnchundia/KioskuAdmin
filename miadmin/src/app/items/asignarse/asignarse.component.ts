@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Categoria} from '../../models/categoria';
 import {Item} from '../../models/items';
+import { Router} from '@angular/router';
 
 import {ColumnItem} from '../../models/columnItem';
 import Swal from 'sweetalert2'
@@ -25,6 +26,10 @@ export class AsignarseComponent implements OnInit {
   searchValueTitulo = '';
   searchValueDescripcion = '';
   searchValueEntrega = '';
+
+  evaluador_role = 'evaluador'
+  es_evaluador = false;
+  tipo_user: any;
 
   visibleTitulo = false;
   visibleDescripcion = false;
@@ -78,7 +83,7 @@ export class AsignarseComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private _categoria:CategoriaService,
     private _itemsService: ItemsService,  
-
+    private router:Router, 
   ) {
 
     this.categoriaForm = this._formBuilder.group({
@@ -90,12 +95,14 @@ export class AsignarseComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.cargarItemUnassigned()  }
+    this.cargarItemUnassigned()  
+    this.tipo_user =  localStorage.getItem('type');
+    this.es_evaluador =  (this.tipo_user == this.evaluador_role);
+  }
 
 
   public verDetallef = (key:number) => {
     let id:number = key;
-    console.log(id);
   }
 
 
@@ -159,10 +166,8 @@ export class AsignarseComponent implements OnInit {
   cargarItemUnassigned(){
     this._itemsService.getItemUnassigned()
     .subscribe((resp:any)=>{
-      console.log(resp);
       this.listOfData = [];
       for (var i =0; i < resp.length; i++){       
-        console.log(resp[i])
         this.listOfData.push(resp[i]);        
       }
       
@@ -175,78 +180,7 @@ export class AsignarseComponent implements OnInit {
       
   }
 
-  /*public eliminarBodega = async (key:number) => {
-    Swal.fire({
-      title: '¿Está seguro que desea eliminar esta bodega?',
-      text: "¡No podrá deshacer esta acción!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Eliminar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this._bodega
-        .deleteBodega(key)
-        .pipe(
-         catchError((err) => {
-           Swal.close();
-           Swal.fire(
-             "Ha ocurrido un error inesperado al eliminar esa bodega"
-           );
-           return throwError(err);
-         })
-       )
-       .subscribe(
-         async (resp: any) => {
-          Swal.close();
-          
-          Swal.fire('Bodega eliminada exitosamente!');
-          
-          this.cargarBodegas();
-           return true;
-         },
-         (error:any) => {
-           console.error('Error:' + error);
-           return throwError(error);
-         },
-         () => console.log('HTTP request completed.')
-       );
-      }
-    })  
   
-   }*/
-
-
-   /*public verDetalle = async (key:number) => {
-      
-    this._subcategoria
-    .getSubcategorias(key)
-    .pipe(
-     catchError((err) => {
-       Swal.close();
-       Swal.fire(
-         "Ha ocurrido un error inesperado al abrir esta bodega"
-       );
-       return throwError(err);
-     })
-   )
-   .subscribe(
-     async (resp: any) => {
-      Swal.close();
-      
-      
-      
-      this.cargarBodegas();
-       return true;
-     },
-     (error:any) => {
-       console.error('Error:' + error);
-       return throwError(error);
-     },
-     () => console.log('HTTP request completed.')
-   );
-   }*/
 
    submitCategoriaForm():void
    {
@@ -264,90 +198,6 @@ export class AsignarseComponent implements OnInit {
 
   }
 
-  //Metodo que permite manejar cuando se da OK al boton del modal
-  handleOk(): void {
-    this.isModalCategoryOkLoading = true;
-    const formData = new FormData();
-    formData.append('nombre',this.categoriaForm.value.categoriaNombre);
-
-
-      this._categoria
-      .crearCategoria(formData)
-      .pipe(
-       catchError((err) => {
-         Swal.close();
-         Swal.fire(
-           "Ha ocurrido un error inesperado al crear esa Categoría"
-         );
-         return throwError(err);
-       })
-     )
-     .subscribe(
-       async (resp: any) => {
-        this.isModalCategoryVisible = false;
-        this.isModalCategoryOkLoading = false;
-
-        this.categoriaForm.patchValue({
-          categoriaNombre: "",
-        });
-        
-        this.categoriaForm.reset();
-        for (const key in this.categoriaForm.controls) {
-          if (this.categoriaForm.controls.hasOwnProperty(key)) {
-            this.categoriaForm.controls[key].markAsPristine();
-            this.categoriaForm.controls[key].updateValueAndValidity();
-          }
-        }
-        Swal.close();
-        
-        Swal.fire({
-          title:'¡Categoría creada exitosamente!'})
-          .then((result) => {
-          if (result.dismiss === Swal.DismissReason.backdrop) {
-           this.cargarItemUnassigned();
-          }
-
-          if (result.isConfirmed) {
-            this.cargarItemUnassigned();
-          }
-        });
-        
-        
-         return true;
-       },
-       (error:any) => {
-         console.error('Error:' + error);
-         return throwError(error);
-       },
-       () => console.log('HTTP request completed.')
-     );
-    
-
-    
-    
-
-
-    
-    
-  }
-
-  //Metodo que permite manejar cuando el modal de la subcategoria se cierra 
-  handleCancel(): void {
-    this.isModalCategoryVisible = false;
-    this.categoriaForm.patchValue({
-      categoriaNombre: "",
-    });
-
-    this.categoriaForm.reset();
-    for (const key in this.categoriaForm.controls) {
-      if (this.categoriaForm.controls.hasOwnProperty(key)) {
-        this.categoriaForm.controls[key].markAsPristine();
-        this.categoriaForm.controls[key].updateValueAndValidity();
-      }
-    }
-  
-  }
-
   asignarse(key:number): void 
   {
     const formData = new FormData();
@@ -356,9 +206,25 @@ export class AsignarseComponent implements OnInit {
     formData.append('item', key as any as string);
     formData.append('admin',  admin_id);
 
-
-
+    if(!this.es_evaluador)
+    {
+      Swal.fire({
+        title:'¡No tiene permisos para usar esta acción!'})
+        .then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.backdrop) {
+          this.router.navigate(['/inicio/dashboard']);
+        }
+  
+        if (result.isConfirmed) {
+          this.router.navigate(['/inicio/dashboard']);
+        }
+      });
+    }
     
+
+    else
+    {
       this._itemsService
       .asignaradminItem(formData)
       .pipe(
@@ -398,6 +264,9 @@ export class AsignarseComponent implements OnInit {
        },
        () => console.log('HTTP request completed.')
      );
+    }
+    
+   
   }
 
 }
