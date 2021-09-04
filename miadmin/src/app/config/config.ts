@@ -41,6 +41,8 @@ const URL_SERVICIOS = {
   estado_id: URL_ROOT + '/estado-id/',
   bodega_item: URL_ROOT + '/bodega-item/',
   bodega_producto: URL_ROOT + '/bodega-producto/',
+  factura: URL_ROOT + '/factura/',
+  anuncio: URL_ROOT + '/anuncio/',
 
   statistics: URL_ROOT + '/statistics/',
   dailyOrders: URL_ROOT + '/dailyOrders/',

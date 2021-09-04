@@ -9,6 +9,7 @@ import {ProductosComponent} from '../productos/productos.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { MembresiaComponent } from '../membresia/membresia.component';
 import { OrdenesComponent } from '../ordenes/ordenes/ordenes.component';
+import { AnunciosComponent } from '../anuncios/anuncios/anuncios.component';
 
 const routes: Routes = [
   {
@@ -49,6 +50,10 @@ const routes: Routes = [
   { path: 'ordenes',
   component: OrdenesComponent,
   loadChildren: () => import('../ordenes/ordenes.module').then(m => m.OrdenesModule)
+  },
+  { path: 'anuncios',
+  component: AnunciosComponent,
+  loadChildren: () => import('../anuncios/anuncios.module').then(m => m.AnunciosModule)
   },
   { path: 'dashboard',
     component: DashboardComponent,

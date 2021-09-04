@@ -23,9 +23,9 @@
         </li>
 
         <li nz-menu-item nzMatchRouter nzIcon="form" >
-          <a routerLink="/welcome">
-            <i nz-icon nzType="tags" nzTheme="outline"></i>
-            <span *ngIf = "!isCollapsed">Postulados</span>
+          <a routerLink="/inicio/anuncios">
+            <i nz-icon nzType="picture" nzTheme="outline"></i>
+            <span *ngIf = "!isCollapsed">Anuncios</span>
           </a>
         </li>
 
@@ -53,13 +53,16 @@
         <li nz-submenu  nzTitle="Compras" nzIcon="shopping">
 
           <ul>
-            <li nz-menu-item routerLink="/inicio/ordenes/">
+            <li nz-menu-item routerLink="/inicio/ordenes/sinasignar">
               <a>
                 Órdenes sin asignar
               </a>
             </li>
-            <li nz-menu-item routerLink="/inicio/ordenes/entregas">
+            <li *ngIf="this.isTransp" nz-menu-item routerLink="/inicio/ordenes/entregas">
               <a>Mis entregas</a>
+            </li>
+            <li nz-menu-item routerLink="/inicio/ordenes/historial">
+              <a>Historial de órdenes</a>
             </li>
           </ul>
         </li>
