@@ -35,4 +35,10 @@ export class OrdenesService {
 
     return this.http.put(url, status).toPromise();
   }
+
+  retrieveAllOrders(): Promise<any>{
+    const url = URL_SERVICIOS.factura;
+
+    return this.http.get(url).toPromise();
+  }
 }

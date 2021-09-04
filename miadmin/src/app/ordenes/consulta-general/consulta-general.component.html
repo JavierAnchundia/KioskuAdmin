@@ -6,13 +6,13 @@
   </nz-breadcrumb-item>
   <nz-breadcrumb-item>
     <a>
-      <i nz-icon nzType="shopping-cart" nzTheme="outline"></i>
-      <span>Mis entregas</span>
+      <i nz-icon nzType="history" nzTheme="outline"></i>
+      <span>Historial</span>
     </a>
   </nz-breadcrumb-item>
 </nz-breadcrumb>
 <div nz-row>
-  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Mis entregas</h2>
+  <h2 nz-col nzXs="10" nzSm="6" nzMd="18" nzLg="18" nzXl="19">Historial de órdenes de compra</h2>
 </div>
 
 <nz-table #filterTable [nzData]="ordersList" nzTableLayout="fixed" class="table manage-candidates-top mb-0">
@@ -30,7 +30,7 @@
       {{ listOfColumns[4].name }}
     </th>
 
-      <th class="action text-center">Entregado</th>
+      <th class="text-center">Transportista</th>
       <th class="action text-center">Ult. actualización de estado</th>
 
     </tr>
@@ -70,15 +70,16 @@
         <a class="pending" *ngIf="orden?.estadoCompra == 'Procesando'">
           <i nz-icon nzType="delivered-procedure" nzTheme="outline"></i>
         </a>
+        <a class="pending" *ngIf="orden?.estadoCompra == 'Por entregar'">
+          <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
+        </a>
         <a class="pending" *ngIf="orden?.estadoCompra == 'Entregado'">
           <i nz-icon nzType="check-circle" nzTheme="fill"></i>
         </a>
         <span class="candidate-list-time order-1"> {{ orden?.estadoCompra }}</span>
       </td>
       <td>
-        <ul class="text-center" *ngIf="orden?.estadoCompra == 'Procesando'">
-          <a (click)="updateOrderDeliveryStatus(orden?.estado)"><i class="sent" nz-icon nzType="send" nzTheme="outline"></i></a>
-        </ul>
+        {{ orden?.transportista }}
       </td>
       <td>{{ orden?.updated | date:'d/M/yy HH:mm a':'+0:00' }} </td>
     </tr>

@@ -106,7 +106,11 @@ export class ConsultarComponent implements OnInit {
 
   updateOrder(id: string): void{
     Swal.showLoading();
-    const deliveryMan = {transportista: this.usuario.getCurrentUserId(), dateUpdated: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm')};
+    const deliveryMan = {
+      transportista: this.usuario.getCurrentUserId(),
+      dateUpdated: this.datepipe.transform(new Date(), 'yyyy-MM-dd HH:mm'),
+      estado: 'Procesando'
+    };
     this.ordenes.updateOrderDeliveryMan(id, deliveryMan)
         .then(() => {
           Swal.close();

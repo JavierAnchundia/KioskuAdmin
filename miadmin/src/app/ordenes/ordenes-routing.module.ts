@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ConsultarComponent } from './consultar/consultar.component';
 import { MisentregasComponent } from './misentregas/misentregas.component';
+import { ConsultaGeneralComponent } from './consulta-general/consulta-general.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'sinasignar',
     component: ConsultarComponent
+  },
+  {
+    path: 'historial',
+    component: ConsultaGeneralComponent
   },
   {
     path: 'entregas',
